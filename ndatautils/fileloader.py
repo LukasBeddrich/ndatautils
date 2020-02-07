@@ -181,22 +181,6 @@ class FileLoaderBase:
             else:
                 self.datadict.update({'rawdata' : {'requested data' : 'None'}})
 
-# =============================================================================
-#         if isinstance(self.metadata, dict):
-#             self.datadict.update({'metadata' : self._meta_data(fnum)})
-#         elif self.metadata:
-#             self.datadict.update({'metadata' : self._meta_data(fnum)})
-#         else:
-#             self.datadict.update({'metadata' : {'requested data' : 'None'}})
-#
-#         if isinstance(self.rawdata, tuple):
-#             self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#         elif self.rawdata:
-#             self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#         else:
-#             self.datadict.update({'rawdata' : {'requested data' : 'None'}})
-# =============================================================================
-
 #---------------------------------------------------------------------------------------------------
 
 ####################################################################################################
@@ -207,48 +191,6 @@ class CascadeLoader(FileLoaderBase):
     """
     Loads data from '.tof' and '.pad' files from the CASCADE detector used at MIRA and RESEDA.
     """
-
-# =============================================================================
-#     def __init__(self, datapath, instrumentloader = None):
-#         """
-#         Initializes a CascadeLoader instance
-# 
-#         Parameters
-#         ----------
-#         datapath : DataPath
-#             DataPath object to retrieve the required file name via datapath(fnum)
-#             The file needs to be a '.tof' or '.pad' file as created by NICOS from
-#             a CASCADE detector's output.
-#         instrumentloader: InstrumentLoader, a subclass
-#             Not yet implemented
-# 
-#         Returns
-#         -------
-# 
-#         Notes
-#         -----
-#         """
-# 
-#         self.datadict = {}
-#         self.datapath = datapath
-#         if instrumentloader == None:
-#             self.metadata = True                    # Workaround until InstrumentLoader(s) are implemented
-#             self.rawdata = True                     # Workaround until InstrumentLoader(s) are implemented
-#             self.instrumentloader = None
-#         else:
-#             self.instrumentloader = instrumentloader
-# =============================================================================
-
-#---------------------------------------------------------------------------------------------------
-
-# =============================================================================
-#     def __call__(self, fnum, metadata = True, rawdata = True):
-#         """
-#         Instance calls the read_out_data method
-#         """
-# 
-#         return self.read_out_data(fnum)
-# =============================================================================
 
 #---------------------------------------------------------------------------------------------------
 
@@ -357,50 +299,13 @@ class CascadeLoader(FileLoaderBase):
 
 #---------------------------------------------------------------------------------------------------
 
-# =============================================================================
-#     def read_out_data(self, fnum):
-#         """
-#         Updates the datadict with the metadata and rawdata (as specified via instrumentloader) for a
-#         file with number fnum.
-#         For specifics refer to CascadeLoader._meta_data and CascadeLoader._raw_data
-#         """
-# 
-#         if self.instrumentloader is not None:
-#             if isinstance(self.instrumentloader.get_Loader_settings('metadata'), dict):
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             elif self.instrumentloader.get_Loader_settings('metadata'):
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             else:
-#                 self.datadict.update({'metadata' : {'requested data' : 'None'}})
-# 
-#             if isinstance(self.instrumentloader.get_Loader_settings('rawdata'), tuple):
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             elif self.instrumentloader.get_Loader_settings('rawdata'):
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             else:
-#                 self.datadict.update({'rawdata' : {'requested data' : 'None'}})
-# 
-# 
-#         else:
-#             if self.metadata:
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             else:
-#                 self.datadict.update({'metadata' : {'requested data' : 'None'}})
-# 
-#         # THIS PART NEEDS MAJOR REWORKS DUE TO USAGE OF STRUCTURED ARRAYS
-#             if self.rawdata:
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             else:
-#                 self.datadict.update({'rawdata' : {'requested data' : 'None'}})
-# =============================================================================
-
-#---------------------------------------------------------------------------------------------------
-
     def not_yet_implemented(self):
         """
         
         """
         print("Not yet Implemnted!")
+
+#---------------------------------------------------------------------------------------------------
 
 ####################################################################################################
 ####################################################################################################
@@ -410,48 +315,6 @@ class ASCIILoader(FileLoaderBase):
     """
     Loads data from '.tof' and '.pad' files from the CASCADE detector used at MIRA and RESEDA.
     """
-
-# =============================================================================
-#     def __init__(self, datapath, instrumentloader = None):
-#         """
-#         Initializes a CascadeLoader instance
-# 
-#         Parameters
-#         ----------
-#         datapath : DataPath
-#             DataPath object to retrieve the required file name via datapath(fnum)
-#             The file needs to be a '.tof' or '.pad' file as created by NICOS from
-#             a CASCADE detector's output.
-#         instrumentloader: InstrumentLoader, a subclass
-#             Not yet implemented
-# 
-#         Returns
-#         -------
-# 
-#         Notes
-#         -----
-#         """
-# 
-#         self.datadict = {}
-#         self.datapath = datapath
-#         if instrumentloader == None:
-#             self.metadata = True                    # Workaround until InstrumentLoader(s) are implemented
-#             self.rawdata = True                     # Workaround until InstrumentLoader(s) are implemented
-#             self.instrumentloader = None
-#         else:
-#             self.instrumentloader = instrumentloader
-# =============================================================================
-
-#---------------------------------------------------------------------------------------------------
-
-# =============================================================================
-#     def __call__(self, fnum, metadata = True, rawdata = True):
-#         """
-#         Instance calls the read_out_data method
-#         """
-# 
-#         return self.read_out_data(fnum)
-# =============================================================================
 
 #---------------------------------------------------------------------------------------------------
 
@@ -568,45 +431,6 @@ class ASCIILoader(FileLoaderBase):
             return np.array(list(zip(*data_as_string.T)), dtype = dtype)
         else:
             raise IOError("The data format is not correctly specified!")
-
-#---------------------------------------------------------------------------------------------------
-
-# =============================================================================
-#     def read_out_data(self, fnum):
-#         """
-#         Updates the datadict with the metadata and rawdata (as specified via instrumentloader) for a
-#         file with number fnum.
-#         For specifics refer to ASCIILoader._meta_data and ASCIILoader._raw_data
-#         """
-# 
-#         if self.instrumentloader is not None:
-#             if isinstance(self.instrumentloader.get_Loader_settings('metadata'), dict):
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             elif self.instrumentloader.get_Loader_settings('metadata'):
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             else:
-#                 self.datadict.update({'metadata' : {'requested data' : 'None'}})
-# 
-#             if isinstance(self.instrumentloader.get_Loader_settings('rawdata'), tuple):
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             elif self.instrumentloader.get_Loader_settings('rawdata'):
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             else:
-#                 self.datadict.update({'rawdata' : {'requested data' : 'None'}})
-# 
-# 
-#         else:
-#             if self.metadata:
-#                 self.datadict.update({'metadata' : self._meta_data(fnum)})
-#             else:
-#                 self.datadict.update({'metadata' : {'requested data' : 'None'}})
-# 
-#         # THIS PART NEEDS MAJOR REWORKS DUE TO USAGE OF STRUCTURED ARRAYS
-#             if self.rawdata:
-#                 self.datadict.update({'rawdata'  : self._raw_data(fnum)})
-#             else:
-#                 self.datadict.update({'rawdata' : {'requested data' : 'None'}})
-# =============================================================================
 
 #---------------------------------------------------------------------------------------------------
 
