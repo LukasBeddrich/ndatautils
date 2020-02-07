@@ -1,0 +1,1886 @@
+{
+    "Experiment information": {
+        "Exp_users": [
+            2.0,
+            21.0
+        ],
+        "Exp_proposal": 14891,
+        "Exp_localcontact": 2.0,
+        "Exp_title": "Ni at RESEDA",
+        "Exp_remark": "Evening Scan - Find T_c - Heating up"
+    },
+    "Sample and alignment": {
+        "Sample_samplename": "Ni / Ni"
+    },
+    "Instrument setup": {
+        "reseda_facility": "Heinz Maier-Leibnitz Zentrum Garching (MLZ)",
+        "reseda_instrument": "RESEDA",
+        "T_alias": 1,
+        "reseda_responsible": 2.0,
+        "reseda_website": " http://www.mlz-garching.de/reseda",
+        "reseda_doi": " http://dx.doi.org/10.17815/jlsrf-1-37",
+        "Ts_alias": 1,
+        "echotime_target": [
+            0.000565,
+            "ns"
+        ],
+        "reseda_operators": "Technische Universität München (TUM)"
+    },
+    "Offsets": {
+        "arm2_rot_offset": [
+            0.0,
+            "deg"
+        ],
+        "psd_distance_offset": [
+            0.0,
+            "m"
+        ],
+        "slit2_bottom_offset": [
+            0.0,
+            "mm"
+        ],
+        "selcradle_offset": [
+            0.0,
+            "deg"
+        ],
+        "slit1_top_offset": [
+            0.0,
+            "mm"
+        ],
+        "arm1_rot_offset": [
+            0.0,
+            "deg"
+        ],
+        "srz_offset": [
+            0.0,
+            "deg"
+        ],
+        "slit1_bottom_offset": [
+            0.0,
+            "mm"
+        ],
+        "slit1_left_offset": [
+            0.0,
+            "mm"
+        ],
+        "slit2_left_offset": [
+            0.0,
+            "mm"
+        ],
+        "slit1_right_offset": [
+            0.0,
+            "mm"
+        ],
+        "slit2_top_offset": [
+            0.0,
+            "mm"
+        ],
+        "slit2_right_offset": [
+            0.0,
+            "mm"
+        ]
+    },
+    "Limits": {
+        "nse0_userlimits": [
+            [
+                0.0,
+                10.0
+            ],
+            "A"
+        ],
+        "selcradle_userlimits": [
+            [
+                -10.0,
+                10.0
+            ],
+            "deg"
+        ],
+        "sf_1_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "slit2_left_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "gf6_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "sf_0b_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "hsf_0a_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "hsf_0b_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "Ts_userlimits": [
+            [
+                0.0,
+                1700.0
+            ],
+            "C"
+        ],
+        "sgx_userlimits": [
+            [
+                -15.0,
+                15.0
+            ],
+            "deg"
+        ],
+        "gf8_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "analysator_rot_userlimits": [
+            [
+                -2.0,
+                2.0
+            ],
+            "deg"
+        ],
+        "gf2_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "gf1_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "psd_chop_freq_userlimits": [
+            [
+                0.1,
+                10000000.0
+            ],
+            "Hz"
+        ],
+        "hsf_1_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "gf7_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "sgy_userlimits": [
+            [
+                -15.0,
+                15.0
+            ],
+            "deg"
+        ],
+        "srz_userlimits": [
+            [
+                -180.0,
+                180.0
+            ],
+            "deg"
+        ],
+        "det_hv_userlimits": [
+            [
+                -3000.0,
+                0.0
+            ],
+            "V"
+        ],
+        "gf4_userlimits": [
+            [
+                0.0,
+                5.0
+            ],
+            "A"
+        ],
+        "cbox_1_fg_freq_userlimits": [
+            [
+                30000.0,
+                5000000.0
+            ],
+            "Hz"
+        ],
+        "selector_speed_userlimits": [
+            [
+                0.0,
+                28500.0
+            ],
+            "rpm"
+        ],
+        "sf_0a_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "slit2_right_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "psd_timebin_freq_userlimits": [
+            [
+                0.1,
+                10000000.0
+            ],
+            "Hz"
+        ],
+        "cbox_0b_fg_amp_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "V"
+        ],
+        "hrf_0b_userlimits": [
+            [
+                0.0,
+                100.0
+            ],
+            "A"
+        ],
+        "cbox_0a_fg_freq_userlimits": [
+            [
+                30000.0,
+                5000000.0
+            ],
+            "Hz"
+        ],
+        "slit1_top_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "arm2_rot_userlimits": [
+            [
+                -15.0,
+                58.0
+            ],
+            "deg"
+        ],
+        "gf5_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "gf9_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "T_ccr_stick_userlimits": [
+            [
+                0.0,
+                350.0
+            ],
+            "K"
+        ],
+        "slit2_bottom_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "T_htf01_userlimits": [
+            [
+                0.0,
+                1700.0
+            ],
+            "C"
+        ],
+        "gf10_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "slit1_right_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "sty_userlimits": [
+            [
+                -15.0,
+                15.0
+            ],
+            "mm"
+        ],
+        "phase_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "arm1_rot_userlimits": [
+            [
+                -90.0,
+                5.0
+            ],
+            "deg"
+        ],
+        "psd_distance_userlimits": [
+            [
+                0.0,
+                4.0
+            ],
+            "m"
+        ],
+        "cbox_1_fg_amp_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "V"
+        ],
+        "slit2_top_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "slit1_left_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "cbox_0a_fg_amp_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "V"
+        ],
+        "stx_userlimits": [
+            [
+                -15.0,
+                15.0
+            ],
+            "mm"
+        ],
+        "T_userlimits": [
+            [
+                0.0,
+                1700.0
+            ],
+            "C"
+        ],
+        "slit1_bottom_userlimits": [
+            [
+                -26.0,
+                26.0
+            ],
+            "mm"
+        ],
+        "T_ccr_tube_userlimits": [
+            [
+                0.0,
+                350.0
+            ],
+            "K"
+        ],
+        "nse1_userlimits": [
+            [
+                0.0,
+                10.0
+            ],
+            "A"
+        ],
+        "mon_hv_userlimits": [
+            [
+                0.0,
+                1050.0
+            ],
+            "V"
+        ],
+        "hrf_0a_userlimits": [
+            [
+                0.0,
+                100.0
+            ],
+            "A"
+        ],
+        "gf0_userlimits": [
+            [
+                0.001,
+                5.0
+            ],
+            "A"
+        ],
+        "hrf_1b_userlimits": [
+            [
+                0.0,
+                100.0
+            ],
+            "A"
+        ],
+        "hrf_1a_userlimits": [
+            [
+                0.0,
+                100.0
+            ],
+            "A"
+        ]
+    },
+    "Precisions/tolerances": {
+        "gf5_precision": [
+            0.005,
+            "A"
+        ],
+        "gf7_precision": [
+            0.005,
+            "A"
+        ],
+        "slit2_bottom_precision": [
+            0.1,
+            "mm"
+        ],
+        "slit2_right_precision": [
+            0.1,
+            "mm"
+        ],
+        "mon_hv_precision": [
+            0.0,
+            "V"
+        ],
+        "nse1_precision": [
+            0.003,
+            "A"
+        ],
+        "sf_0a_precision": [
+            0.01,
+            "A"
+        ],
+        "slit1_bottom_precision": [
+            0.1,
+            "mm"
+        ],
+        "sf_0b_precision": [
+            0.01,
+            "A"
+        ],
+        "phase_precision": [
+            0.005,
+            "A"
+        ],
+        "T_ccr_a_precision": [
+            0.0,
+            "K"
+        ],
+        "hsf_0b_precision": [
+            0.01,
+            "A"
+        ],
+        "sf_1_precision": [
+            0.01,
+            "A"
+        ],
+        "T_ccr_b_precision": [
+            0.0,
+            "K"
+        ],
+        "gf6_precision": [
+            0.005,
+            "A"
+        ],
+        "det_hv_precision": [
+            1.0,
+            "V"
+        ],
+        "sgy_precision": [
+            0.0,
+            "deg"
+        ],
+        "slit1_top_precision": [
+            0.01,
+            "mm"
+        ],
+        "slit2_left_precision": [
+            0.1,
+            "mm"
+        ],
+        "gf1_precision": [
+            0.005,
+            "A"
+        ],
+        "hsf_1_precision": [
+            0.01,
+            "A"
+        ],
+        "gf2_precision": [
+            0.005,
+            "A"
+        ],
+        "sgx_precision": [
+            0.0,
+            "deg"
+        ],
+        "hrf_0b_precision": [
+            0.02,
+            "A"
+        ],
+        "P_ng_elements_precision": [
+            0.0,
+            "mbar"
+        ],
+        "T_htf01_precision": [
+            10.0,
+            "C"
+        ],
+        "analysator_rot_precision": [
+            0.001,
+            "deg"
+        ],
+        "sty_precision": [
+            0.0,
+            "mm"
+        ],
+        "gf4_precision": [
+            0.005,
+            "A"
+        ],
+        "psd_distance_precision": [
+            0.0,
+            "m"
+        ],
+        "slit1_left_precision": [
+            0.1,
+            "mm"
+        ],
+        "slit2_top_precision": [
+            0.1,
+            "mm"
+        ],
+        "T_precision": [
+            10.0,
+            "C"
+        ],
+        "arm1_rot_precision": [
+            0.05,
+            "deg"
+        ],
+        "stx_precision": [
+            0.0,
+            "mm"
+        ],
+        "slit1_right_precision": [
+            0.1,
+            "mm"
+        ],
+        "selcradle_precision": [
+            0.1,
+            "deg"
+        ],
+        "P_ccr_precision": [
+            0.0,
+            "mbar"
+        ],
+        "P_polarizer_precision": [
+            0.0,
+            "mbar"
+        ],
+        "T_ccr_stick_precision": [
+            0.1,
+            "K"
+        ],
+        "gf10_precision": [
+            0.005,
+            "A"
+        ],
+        "gf0_precision": [
+            0.005,
+            "A"
+        ],
+        "P_selector_vacuum_precision": [
+            0.0,
+            "mbar"
+        ],
+        "hsf_0a_precision": [
+            0.01,
+            "A"
+        ],
+        "srz_precision": [
+            0.05,
+            "deg"
+        ],
+        "hrf_1a_precision": [
+            0.02,
+            "A"
+        ],
+        "hrf_1b_precision": [
+            0.02,
+            "A"
+        ],
+        "gf8_precision": [
+            0.005,
+            "A"
+        ],
+        "nse0_precision": [
+            0.003,
+            "A"
+        ],
+        "gf9_precision": [
+            0.005,
+            "A"
+        ],
+        "selector_speed_precision": [
+            10.0,
+            "rpm"
+        ],
+        "hrf_0a_precision": [
+            0.02,
+            "A"
+        ],
+        "T_ccr_d_precision": [
+            0.0,
+            "K"
+        ],
+        "T_ccr_c_precision": [
+            0.0,
+            "K"
+        ],
+        "Ts_precision": [
+            10.0,
+            "C"
+        ],
+        "T_ccr_tube_precision": [
+            0.1,
+            "K"
+        ],
+        "arm2_rot_precision": [
+            0.01,
+            "deg"
+        ]
+    },
+    "Device status": {
+        "arm2_rot_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0a_coil1_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_fg_freq_status": [
+            "ok",
+            "on"
+        ],
+        "cbox_0a_highpass_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_coil1_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "selector_vibrt_status": [
+            "ok",
+            "ok"
+        ],
+        "cbox_1_coil1_rms_status": "ok",
+        "sf_0b_status": [
+            "ok",
+            "output on"
+        ],
+        "T_arm1_coil4_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_highpass_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_power_divider_status": [
+            "ok",
+            "idle"
+        ],
+        "srz_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0b_coil1_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "T_ccr_b_status": "ok",
+        "cbox_0a_coil2_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_coil1_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "selcradle_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0a_coil1_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "sf_1_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_1_coil1_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "nse0_status": [
+            "ok",
+            "current regulated"
+        ],
+        "P_ng_elements_status": [
+            "ok",
+            "ok"
+        ],
+        "cbox_0a_reg_amp_status": [
+            "ok",
+            "idle"
+        ],
+        "T_arm0b_coil2_status": [
+            "ok",
+            "idle, Error, Sensor short"
+        ],
+        "cbox_0a_coil1_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_diplexer_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_coil2_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "hrf_1b_status": [
+            "warn",
+            "no current, off or interlock triggered"
+        ],
+        "slit1_right_status": [
+            "ok",
+            "motor halted"
+        ],
+        "sf_0a_status": [
+            "ok",
+            "output on"
+        ],
+        "gf0_status": [
+            "disabled",
+            "output off"
+        ],
+        "monitor1_status": [
+            "ok",
+            "idle"
+        ],
+        "fg_burst_status": [
+            "ok",
+            "indeterminate"
+        ],
+        "hrf_0a_status": [
+            "ok",
+            "current regulated"
+        ],
+        "T_ccr_a_status": "ok",
+        "cbox_1_coil1_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "selector_vacuum_status": [
+            "ok",
+            "ok"
+        ],
+        "nse1_status": [
+            "ok",
+            "current regulated"
+        ],
+        "sgy_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0a_diplexer_status": [
+            "ok",
+            "idle"
+        ],
+        "P_polarizer_status": [
+            "ok",
+            "ok"
+        ],
+        "cbox_0b_diplexer_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_coil2_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_revp_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_1_coil1_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_coil2_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_coil1_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_highpass_status": [
+            "ok",
+            "idle"
+        ],
+        "psd_chop_freq_status": [
+            "ok",
+            "on"
+        ],
+        "T_status": [
+            "busy",
+            "moving"
+        ],
+        "T_arm1_coil2_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_coil1_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "gf1_status": [
+            "ok",
+            "output on"
+        ],
+        "selector_woutt_status": [
+            "ok",
+            "ok"
+        ],
+        "psd_channel_status": [
+            "ok",
+            "idle"
+        ],
+        "analysator_rot_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0b_coil1_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "T_arm0a_coil2_status": [
+            "ok",
+            "idle"
+        ],
+        "gf8_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_0a_coil2_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "arm1_rot_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_1_fg_amp_status": [
+            "ok",
+            "on"
+        ],
+        "att2_status": [
+            "ok",
+            "idle"
+        ],
+        "DataSpace_status": [
+            "ok",
+            "837.74 GiB free"
+        ],
+        "cbox_1_fg_freq_status": [
+            "ok",
+            "on"
+        ],
+        "sgx_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "phase_status": [
+            "ok",
+            "output on"
+        ],
+        "echotime_status": [
+            "warn",
+            "wavelength=(seldev=controlled, Database nvs : Datas are not logged!, tiltdev=axis ready, controller ready (all axis stopped)), gf1=output on, gf2=output on, gf4=current regulated, gf5=output on, gf6=output on, gf7=output on, gf8=output on, gf9=output on, gf10=output on, hsf_0a=output on, hsf_0b=output on, hsf_1=output on, sf_0a=output on, sf_0b=output on, sf_1=output on, hrf_0a=current regulated, hrf_0b=current regulated, hrf_1a=current regulated, hrf_1b=no current, off or interlock triggered, nse0=current regulated, nse1=current regulated, cbox_0a_fg_freq=on, cbox_0a_reg_amp=idle, cbox_0a_coil1_c1=idle, cbox_0a_coil1_c2=idle, cbox_0a_coil1_c1c2serial=idle, cbox_0a_coil1_c3=idle, cbox_0a_coil1_transformer=idle, cbox_0a_coil2_c1=idle, cbox_0a_coil2_c2=idle, cbox_0a_coil2_c1c2serial=idle, cbox_0a_coil2_c3=idle, cbox_0a_coil2_transformer=idle, cbox_0a_diplexer=idle, cbox_0a_power_divider=idle, cbox_0b_fg_freq=on, cbox_0b_reg_amp=idle, cbox_0b_coil1_c1=idle, cbox_0b_coil1_c2=idle, cbox_0b_coil1_c1c2serial=idle, cbox_0b_coil1_c3=idle, cbox_0b_coil1_transformer=idle, cbox_0b_coil2_c1=idle, cbox_0b_coil2_c2=idle, cbox_0b_coil2_c1c2serial=idle, cbox_0b_coil2_c3=idle, cbox_0b_coil2_transformer=idle, cbox_0b_diplexer=idle, cbox_0b_power_divider=idle, cbox_1_fg_freq=on, cbox_1_reg_amp=stable, cbox_1_coil1_c1=idle, cbox_1_coil1_c2=idle, cbox_1_coil1_c1c2serial=idle, cbox_1_coil1_c3=idle, cbox_1_coil1_transformer=idle, cbox_1_coil2_c1=idle, cbox_1_coil2_c2=idle, cbox_1_coil2_c1c2serial=idle, cbox_1_coil2_c3=idle, cbox_1_coil2_transformer=idle, cbox_1_diplexer=idle, cbox_1_power_divider=idle"
+        ],
+        "cbox_0b_fwdp_status": [
+            "ok",
+            "output on"
+        ],
+        "selector_rtemp_status": [
+            "ok",
+            "ok"
+        ],
+        "selector_lambda_status": [
+            "warn",
+            "seldev=controlled, Database nvs : Datas are not logged!, tiltdev=axis ready, controller ready (all axis stopped)"
+        ],
+        "cbox_0b_reg_amp_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_status": [
+            "ok",
+            "idle"
+        ],
+        "Ts_status": [
+            "busy",
+            "moving"
+        ],
+        "cbox_0a_power_divider_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_revp_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_1_revp_status": [
+            "disabled",
+            "output off"
+        ],
+        "gf6_status": [
+            "ok",
+            "output on"
+        ],
+        "slit2_left_status": [
+            "ok",
+            "motor halted"
+        ],
+        "Sample_status": "ok",
+        "cbox_0b_coil1_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "gf9_status": [
+            "ok",
+            "output on"
+        ],
+        "hsf_0a_status": [
+            "ok",
+            "output on"
+        ],
+        "P_ccr_status": [
+            "error",
+            "no transmitter"
+        ],
+        "att1_status": [
+            "ok",
+            "idle"
+        ],
+        "slit1_top_status": [
+            "ok",
+            "motor halted"
+        ],
+        "cbox_0b_coil2_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "T_ccr_tube_status": [
+            "busy",
+            "target not yet reached, temp underrange"
+        ],
+        "hrf_1a_status": [
+            "ok",
+            "current regulated"
+        ],
+        "cbox_0a_fwdp_status": [
+            "ok",
+            "output on"
+        ],
+        "counter_status": [
+            "ok",
+            "idle"
+        ],
+        "st_air_status": [
+            "ok",
+            "idle"
+        ],
+        "gf7_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_0b_coil2_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_coil2_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_coil2_c3_status": [
+            "ok",
+            "idle"
+        ],
+        "psd_status": [
+            "ok",
+            "psd_channel=idle, timer=idle, monitor1=idle"
+        ],
+        "hrf_0b_status": [
+            "ok",
+            "current regulated"
+        ],
+        "slit2_bottom_status": [
+            "ok",
+            "motor halted"
+        ],
+        "timer_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_fg_amp_status": [
+            "ok",
+            "on"
+        ],
+        "mon_hv_status": [
+            "ok",
+            "on"
+        ],
+        "att0_status": [
+            "ok",
+            "idle"
+        ],
+        "slit2_right_status": [
+            "ok",
+            "motor halted"
+        ],
+        "cbox_0b_coil_rms_status": "ok",
+        "cbox_0a_fg_amp_status": [
+            "ok",
+            "on"
+        ],
+        "cbox_0a_coil2_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "slit1_bottom_status": [
+            "ok",
+            "motor halted"
+        ],
+        "cbox_1_coil2_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "selector_wflow_status": [
+            "ok",
+            "ok"
+        ],
+        "cbox_0b_power_divider_status": [
+            "ok",
+            "idle"
+        ],
+        "selector_speed_status": [
+            "warn",
+            "controlled, Database nvs : Datas are not logged!"
+        ],
+        "T_arm1_coil3_status": [
+            "ok",
+            "idle"
+        ],
+        "Sixfold_status": "ok",
+        "gf4_status": [
+            "ok",
+            "current regulated"
+        ],
+        "stx_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "T_ccr_d_status": "ok",
+        "det_hv_status": [
+            "ok",
+            "on"
+        ],
+        "selector_winlt_status": [
+            "ok",
+            "ok"
+        ],
+        "cbox_1_status": [
+            "disabled",
+            "output off"
+        ],
+        "Crane_status": "ok",
+        "cbox_0b_coil1_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_reg_amp_status": [
+            "ok",
+            "stable"
+        ],
+        "cbox_0b_fg_freq_status": [
+            "ok",
+            "on"
+        ],
+        "T_arm1_coil1_status": [
+            "ok",
+            "idle"
+        ],
+        "psd_timebin_freq_status": [
+            "ok",
+            "on"
+        ],
+        "hsf_1_status": [
+            "ok",
+            "output on"
+        ],
+        "cbox_1_fwdp_status": [
+            "disabled",
+            "output off"
+        ],
+        "psd_distance_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0b_status": [
+            "ok",
+            "idle"
+        ],
+        "slit2_status": [
+            "ok",
+            "left=motor halted, right=motor halted, bottom=motor halted, top=motor halted"
+        ],
+        "cbox_1_coil2_transformer_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_coil1_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "ReactorPower_status": "ok",
+        "gf10_status": [
+            "ok",
+            "output on"
+        ],
+        "gf2_status": [
+            "ok",
+            "output on"
+        ],
+        "T_htf01_status": [
+            "busy",
+            "moving"
+        ],
+        "cbox_1_coil2_rms_status": "ok",
+        "slit2_top_status": [
+            "ok",
+            "motor halted"
+        ],
+        "T_arm0a_coil1_status": [
+            "ok",
+            "idle"
+        ],
+        "gf5_status": [
+            "ok",
+            "output on"
+        ],
+        "sty_status": [
+            "ok",
+            "axis ready, controller ready (all axis stopped)"
+        ],
+        "T_ccr_c_status": [
+            "warn",
+            "temp underrange"
+        ],
+        "cbox_0a_coil2_c2_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_1_coil2_c1_status": [
+            "ok",
+            "idle"
+        ],
+        "cbox_0a_coil_rms_status": "ok",
+        "T_arm0b_coil1_status": [
+            "ok",
+            "idle"
+        ],
+        "T_ccr_stick_status": [
+            "busy",
+            "target not yet reached, ok"
+        ],
+        "cbox_1_coil2_c1c2serial_status": [
+            "ok",
+            "idle"
+        ],
+        "P_selector_vacuum_status": [
+            "warn",
+            "low"
+        ],
+        "slit1_left_status": [
+            "ok",
+            "motor halted"
+        ],
+        "hsf_0b_status": [
+            "ok",
+            "output on"
+        ],
+        "htf01_p_status": [
+            "ok",
+            "idle"
+        ],
+        "slit1_status": [
+            "ok",
+            "left=motor halted, right=motor halted, bottom=motor halted, top=motor halted"
+        ]
+    },
+    "Device positions and sample environment state": {
+        "cbox_0a_coil1_c1c2serial_value": 0,
+        "hrf_1a_value": [
+            0.004,
+            "A"
+        ],
+        "htf01_p_value": -1,
+        "hrf_1b_value": [
+            0.001,
+            "A"
+        ],
+        "gf0_value": [
+            1.0,
+            "A"
+        ],
+        "cbox_1_coil2_rms_timescale": [
+            3.8016,
+            -5.0
+        ],
+        "gf4_value": [
+            1.001,
+            "A"
+        ],
+        "cbox_1_coil2_c3_value": 0,
+        "cbox_1_coil1_c3_value": 0,
+        "hsf_0a_value": [
+            0.8,
+            "A"
+        ],
+        "Ts_setpoint": [
+            325.038391113,
+            "C"
+        ],
+        "cbox_1_fwdp_value": [
+            0.0,
+            "W"
+        ],
+        "T_arm1_coil4_value": [
+            21.6,
+            "degC"
+        ],
+        "cbox_1_highpass_value": 0,
+        "psd_timebin_freq_value": [
+            1920.0,
+            "Hz"
+        ],
+        "Ts_heaterpower": [
+            13.9308223724,
+            "W"
+        ],
+        "cbox_0a_coil_rms_value": [
+            0.024,
+            "V"
+        ],
+        "cbox_1_coil2_c1c2serial_value": 0,
+        "cbox_1_fg_freq_value": [
+            300000.0,
+            "Hz"
+        ],
+        "hrf_0a_value": [
+            0.721,
+            "A"
+        ],
+        "selector_vibrt_value": 0.16,
+        "cbox_0a_coil1_transformer_value": 0,
+        "cbox_0b_coil2_c2_value": 0,
+        "slit2_right_value": [
+            4.992,
+            "mm"
+        ],
+        "cbox_0b_fwdp_value": [
+            0.0,
+            "W"
+        ],
+        "T_ccr_stick_setpoint": [
+            300.0,
+            "K"
+        ],
+        "nse0_value": [
+            1.7934,
+            "A"
+        ],
+        "cbox_0b_coil2_transformer_value": 0,
+        "cbox_0a_coil1_c2_value": 0,
+        "Ts_i": 80.0,
+        "slit1_right_value": [
+            4.99,
+            "mm"
+        ],
+        "selector_speed_window": [
+            60.0,
+            "s"
+        ],
+        "cbox_1_coil1_rms_timescale": [
+            3.8016,
+            -5.0
+        ],
+        "cbox_0a_coil2_c2_value": 0,
+        "T_arm0b_coil1_value": [
+            21.2,
+            "degC"
+        ],
+        "selector_wflow_value": 4.5,
+        "att1_value": "out",
+        "slit2_top_value": [
+            5.0,
+            "mm"
+        ],
+        "cbox_0a_coil_rms_yscale": 0.5,
+        "st_air_value": "off",
+        "cbox_0a_coil_rms_timescale": 0.000271584,
+        "cbox_0a_fg_freq_value": [
+            35000.0,
+            "Hz"
+        ],
+        "sgx_value": [
+            0.0,
+            "deg"
+        ],
+        "T_ccr_d_value": [
+            0.0,
+            "K"
+        ],
+        "Ts_p": 38.0,
+        "arm1_rot_value": [
+            -70.12,
+            "deg"
+        ],
+        "cbox_0b_coil1_c1_value": 26,
+        "T_htf01_value": [
+            324.973,
+            "C"
+        ],
+        "cbox_0b_coil1_c2_value": 31,
+        "cbox_0a_value": [
+            30609.0,
+            "Hz"
+        ],
+        "gf6_value": [
+            1.5,
+            "A"
+        ],
+        "cbox_0b_value": [
+            35439.0,
+            "Hz"
+        ],
+        "cbox_0a_coil2_c1_value": 0,
+        "T_heaterpower": [
+            13.9308223724,
+            "W"
+        ],
+        "T_arm1_coil2_value": [
+            21.4,
+            "degC"
+        ],
+        "Crane_value": [
+            50.2,
+            "m"
+        ],
+        "cbox_1_reg_amp_value": [
+            0.004,
+            "V"
+        ],
+        "phase_value": [
+            0.001,
+            "A"
+        ],
+        "selector_woutt_value": [
+            17.1,
+            "degC"
+        ],
+        "cbox_1_coil1_rms_value": [
+            0.004,
+            "V"
+        ],
+        "selector_rtemp_value": [
+            23.5,
+            "degC"
+        ],
+        "T_htf01_setpoint": [
+            325.038391113,
+            "C"
+        ],
+        "cbox_0b_fg_freq_timescale": 10.0,
+        "selcradle_value": [
+            -0.001,
+            "deg"
+        ],
+        "cbox_0b_highpass_value": 0,
+        "T_ccr_tube_window": [
+            60.0,
+            "s"
+        ],
+        "cbox_1_coil1_transformer_value": 0,
+        "gf2_value": [
+            0.8,
+            "A"
+        ],
+        "cbox_0b_coil1_transformer_value": 0,
+        "cbox_0b_revp_value": [
+            0.0,
+            "W"
+        ],
+        "cbox_0a_power_divider_value": 0,
+        "T_htf01_heaterpower": [
+            13.9308223724,
+            "W"
+        ],
+        "T_arm1_coil1_value": [
+            21.1,
+            "degC"
+        ],
+        "T_htf01_d": 11.0,
+        "T_window": [
+            100.0,
+            "s"
+        ],
+        "cbox_0b_reg_amp_value": [
+            0.02,
+            "V"
+        ],
+        "T_ccr_c_value": [
+            0.0,
+            "K"
+        ],
+        "gf9_value": [
+            0.001,
+            "A"
+        ],
+        "echotime_value": [
+            0.0,
+            "ns"
+        ],
+        "cbox_0a_fg_amp_value": [
+            0.01,
+            "V"
+        ],
+        "selector_winlt_value": [
+            16.9,
+            "degC"
+        ],
+        "T_ccr_stick_heateroutput": 0.0,
+        "T_p": 38.0,
+        "T_arm0b_coil2_value": [
+            -200.0,
+            "degC"
+        ],
+        "sgy_value": [
+            0.0,
+            "deg"
+        ],
+        "cbox_1_coil2_transformer_value": 0,
+        "cbox_0a_coil2_c3_value": 0,
+        "selector_vacuum_value": [
+            0.00094,
+            "mbar"
+        ],
+        "cbox_0a_highpass_value": 0,
+        "arm2_rot_value": [
+            -1.5,
+            "deg"
+        ],
+        "T_htf01_window": [
+            100.0,
+            "s"
+        ],
+        "cbox_0a_diplexer_value": 0,
+        "cbox_1_revp_value": [
+            0.0,
+            "W"
+        ],
+        "T_i": 80.0,
+        "T_ccr_tube_heateroutput": 0.0,
+        "cbox_0b_coil_rms_value": [
+            0.02,
+            "V"
+        ],
+        "T_ccr_a_value": [
+            0.0,
+            "K"
+        ],
+        "DataSpace_value": [
+            837.736,
+            "GiB"
+        ],
+        "cbox_0b_coil2_c1c2serial_value": 0,
+        "psd_chop_freq_value": [
+            120.0,
+            "Hz"
+        ],
+        "cbox_1_coil1_c1_value": 0,
+        "cbox_1_coil1_c2_value": 0,
+        "slit2_bottom_value": [
+            4.995,
+            "mm"
+        ],
+        "cbox_0b_coil1_c3_value": 0,
+        "cbox_0a_coil2_c1c2serial_value": 0,
+        "ReactorPower_value": [
+            20.0,
+            "MW"
+        ],
+        "sf_1_value": [
+            0.001,
+            "A"
+        ],
+        "cbox_0b_fg_amp_value": [
+            0.01,
+            "V"
+        ],
+        "stx_value": [
+            0.0,
+            "mm"
+        ],
+        "T_htf01_maxheaterpower": [
+            100.0,
+            "W"
+        ],
+        "sf_0a_value": [
+            0.001,
+            "A"
+        ],
+        "Sixfold_value": "open No unit",
+        "P_ccr_value": [
+            1000.0,
+            "mbar"
+        ],
+        "gf1_value": [
+            3.0,
+            "A"
+        ],
+        "cbox_0b_coil2_c3_value": 0,
+        "cbox_0b_power_divider_value": 0,
+        "sty_value": [
+            -0.0,
+            "mm"
+        ],
+        "cbox_1_fg_amp_value": [
+            0.01,
+            "V"
+        ],
+        "cbox_0a_coil1_c3_value": 0,
+        "T_ccr_tube_i": 15.0,
+        "cbox_0b_coil_rms_timescale": 0.000271584,
+        "cbox_0a_fwdp_value": [
+            0.0,
+            "W"
+        ],
+        "cbox_0b_diplexer_value": 0,
+        "slit1_top_value": [
+            5.0,
+            "mm"
+        ],
+        "slit1_left_value": [
+            4.991,
+            "mm"
+        ],
+        "slit2_value": [
+            [
+                -0.01,
+                0.0,
+                10.0,
+                9.99
+            ],
+            "mm"
+        ],
+        "T_ccr_stick_i": 20.0,
+        "T_ccr_tube_d": 10.0,
+        "cbox_1_coil1_rms_yscale": 0.5,
+        "selector_lambda_value": [
+            6.0,
+            "A"
+        ],
+        "slit1_bottom_value": [
+            5.002,
+            "mm"
+        ],
+        "T_arm0a_coil1_value": [
+            21.5,
+            "degC"
+        ],
+        "T_ccr_stick_d": 0.0,
+        "T_arm1_coil3_value": [
+            21.6,
+            "degC"
+        ],
+        "att0_value": "out",
+        "T_ccr_tube_p": 150.0,
+        "cbox_1_coil2_rms_value": [
+            0.021,
+            "V"
+        ],
+        "Ts_d": 11.0,
+        "Sample_value": "Ni / Ni",
+        "analysator_rot_value": [
+            0.95,
+            "deg"
+        ],
+        "T_ccr_stick_p": 50.0,
+        "cbox_1_coil2_c1_value": 0,
+        "srz_value": [
+            -20.992,
+            "deg"
+        ],
+        "cbox_1_coil2_rms_yscale": 0.5,
+        "T_arm0a_coil2_value": [
+            22.0,
+            "degC"
+        ],
+        "T_htf01_i": 80.0,
+        "gf7_value": [
+            0.001,
+            "A"
+        ],
+        "cbox_0b_coil2_c1_value": 0,
+        "T_controlchannel": 1,
+        "selector_speed_value": [
+            21214.0,
+            "rpm"
+        ],
+        "cbox_1_diplexer_value": 0,
+        "cbox_0a_coil1_c1_value": 32,
+        "cbox_1_value": [
+            0.0,
+            "Hz"
+        ],
+        "cbox_0b_fg_freq_value": [
+            35060.0,
+            "Hz"
+        ],
+        "Ts_value": [
+            324.973,
+            "C"
+        ],
+        "slit1_value": [
+            [
+                -0.0,
+                -0.0,
+                9.98,
+                10.0
+            ],
+            "mm"
+        ],
+        "cbox_1_power_divider_value": 1,
+        "det_hv_value": [
+            -2950.0,
+            "V"
+        ],
+        "T_setpoint": [
+            325.038391113,
+            "C"
+        ],
+        "hsf_0b_value": [
+            0.8,
+            "A"
+        ],
+        "slit2_left_value": [
+            5.006,
+            "mm"
+        ],
+        "nse1_value": [
+            0.0001,
+            "A"
+        ],
+        "gf10_value": [
+            0.001,
+            "A"
+        ],
+        "hrf_0b_value": [
+            0.802,
+            "A"
+        ],
+        "mon_hv_value": [
+            1000.0,
+            "V"
+        ],
+        "P_ng_elements_value": [
+            6.0,
+            "mbar"
+        ],
+        "cbox_0a_revp_value": [
+            0.0,
+            "W"
+        ],
+        "T_d": 11.0,
+        "T_maxheaterpower": [
+            100.0,
+            "W"
+        ],
+        "cbox_0b_coil1_c1c2serial_value": 0,
+        "sf_0b_value": [
+            0.001,
+            "A"
+        ],
+        "hsf_1_value": [
+            0.001,
+            "A"
+        ],
+        "cbox_0b_coil_rms_yscale": 0.5,
+        "cbox_1_coil2_c2_value": 0,
+        "Ts_controlchannel": 1,
+        "Ts_maxheaterpower": [
+            100.0,
+            "W"
+        ],
+        "cbox_0a_coil2_transformer_value": 0,
+        "T_ccr_tube_setpoint": [
+            300.0,
+            "K"
+        ],
+        "Ts_window": [
+            100.0,
+            "s"
+        ],
+        "T_ccr_stick_window": [
+            60.0,
+            "s"
+        ],
+        "T_ccr_b_value": [
+            0.0,
+            "K"
+        ],
+        "T_htf01_p": 38.0,
+        "T_ccr_stick_value": [
+            0.0,
+            "K"
+        ],
+        "gf8_value": [
+            0.001,
+            "A"
+        ],
+        "T_value": [
+            324.973,
+            "C"
+        ],
+        "T_ccr_tube_value": [
+            0.0,
+            "K"
+        ],
+        "cbox_0a_reg_amp_value": [
+            0.024,
+            "V"
+        ],
+        "P_selector_vacuum_value": [
+            0.0005,
+            "mbar"
+        ],
+        "gf5_value": [
+            1.0,
+            "A"
+        ],
+        "cbox_1_coil1_c1c2serial_value": 0,
+        "P_polarizer_value": [
+            0.3,
+            "mbar"
+        ],
+        "att2_value": "out",
+        "psd_distance_value": [
+            3.43,
+            "m"
+        ],
+        "fg_burst_value": "trigger",
+        "T_htf01_controlchannel": 1
+    },
+    "Detector preset information": {
+        "psd_preset": [
+            30.0,
+            "s"
+        ],
+        "psd_mode": "time"
+    },
+    "Scan data": {
+        "names": [
+            "etime",
+            "T",
+            ";",
+            "timer",
+            "monitor1",
+            "psd_channel.roi",
+            "psd_channel.total",
+            "file1"
+        ],
+        "units": [
+            "s",
+            "C",
+            ";",
+            "s",
+            "cts",
+            "cts",
+            "cts",
+            "-"
+        ]
+    },
+    "End of NICOS data file p14891_00004417.dat": {}
+}
