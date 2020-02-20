@@ -2,7 +2,8 @@
 
 ### Imports
 import numpy as np
-from ..utils import sine
+import matplotlib.pyplot as plt
+from ..utils import sine, fit_beam_center
 from numpy import pi
 from lmfit import Model
 ###
@@ -38,6 +39,47 @@ def create_model(func, backend="lmfit"):
     else:
         raise KeyError("The backend '{}' is not recognized.".format(backend))
 
+#-----------------------------------------------------------------------------
+
+def check_red_fit(redobj, lrbt, foil=0, ret=False):
+    """
+    visualizes the fit of a reduction instance
+
+    Parameters
+    ----------
+    redobj : ndatautils.miezefitter.Reduction
+        
+    lrbt   : tuple, list
+        lrbt : [left, right, bottom, top], None
+        integer values in 128x128 to specify ROI
+    foil   : int
+        integer from 0 to 7 selects foil of Cascade dataset
+    ret    : bool
+        specifies if figure und axes of the plot are returned
+
+    Returns
+    -------
+    fix, ax : matplotlib.figure.Figure, matplotlib.axis._subplots.AxesSubplot
+        used figure and axis instance
+    """
+    redobj.prepare_fit_data(lrbt=lrbt)
+    result = redobj.single_fit(np.arange(0,16), redobj.preped_data[foil], np.sqrt(redobj.preped_data[foil])**-1)
+    params = [result["raw_fit_vals"][key] for key in ["A", "omega", "phi", "y0"]]
+
+    fig, ax = plt.subplots(figsize=(7.5,5))
+    ax.errorbar(np.arange(0,16), redobj.preped_data[foil], np.sqrt(redobj.preped_data[foil]), ls="", marker="o", ms=7, color="C0", capsize=5,
+                label="C: {:.2f} $\pm$ {:.2f}".format(result["contrast"], result["contrast_err"]))
+    ax.plot(np.linspace(0,15,101), sine(np.linspace(0,15,101), *params), color="C0", label="fit")
+    ax.tick_params("both", labelsize=16)
+    ax.set_xlabel(r"time bins", fontsize=18)
+    ax.set_ylabel(r"Counts in 10$\,$s", fontsize=18)
+#    ax.set_ylim(ymin=0, ymax=0.56)
+#    ax.set_xlim((0.0, 0.35))
+    ax.legend(loc="upper center", fontsize=13, markerscale=0.75)
+
+    if ret:
+        return fig, ax
+
 ####################################################################################################
 ####################################################################################################
 ####################################################################################################
@@ -61,9 +103,6 @@ class Reduction:
         backend : str
             - lmfit: uses `lmfit´ package for fitting
             - iminuit: uses `iminuit´ package for fitting
-
-        instrumentloader : subclass of(or) instrumentloader.InstrumentLoader
-            Contains the information of the instrument of the used in the experiment.
 
         Return
         ------
@@ -234,4 +273,123 @@ class Reduction:
         for idx, foilind in enumerate(self.relevant_foils):
             self.fit_dict[foilind] = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
 
-#---------------------------------------------------------------------------------------------------
+##############################################################################
+##############################################################################
+##############################################################################
+
+class ReductionStructure:
+    """
+    
+    """
+    def __init__(self, fileloader, *files, **kwargs):
+        """
+        
+        """
+        self.fileloader = fileloader
+        self.kwargs = kwargs
+        if len(files) == 0:
+            self.red_list = []
+        else:
+            self.red_list = [Reduction(self.fileloader, f) for f in files]
+    
+    def analyze(self, **param_keys):
+        """
+        Run simple contrast calculation on all elements in self.red_list.
+        Uses one rectangular area as mask.
+
+        param_keys : dict
+            general sturcture is {'metadata_key' : 'alias', ...} where the
+            'metadata_key' specifies an entry in the
+            self.fileloader.datadict["metadata"]["main_key"]
+            'alias' is the key for sef.params_dict
+
+        Examples
+        --------
+        >>> example_structure = ReductionStructure(...)
+        >>> example_structure.analyze(dtx_value="theta_D"})
+        """
+        self.contrast = []
+        self.contrast_err = []
+
+        param_keys.update(dict([("echotime_value", "tau_M")])) # Standard add MIEZE time
+        self.params_dict = self.get_params(**param_keys)
+
+        for redobj in self.red_list:
+            center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
+            lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+
+
+            redobj.prepare_fit_data(lrbt=lrbt)
+            redobj.run_fits()
+            tc = []
+            tcerr = []
+            for foil in redobj.relevant_foils:
+                tc.append(redobj.fit_dict[foil]["contrast"])
+                tcerr.append(redobj.fit_dict[foil]["contrast_err"])
+            self.contrast.append(tc)
+            self.contrast_err.append(tcerr)
+
+        self.contrast = np.array(self.contrast)
+        self.contrast_err = np.array(self.contrast_err)
+        self.weighted_mean_contrast = np.nansum(self.contrast[:,(0,2,3)]*self.contrast_err[:,(0,2,3)]**-2, axis=1)/np.nansum(self.contrast_err[:,(0,2,3)]**-2, axis=1)
+        self.weighted_mean_contrast_err = np.sqrt(1 / np.nansum(self.contrast_err[:,(0,2,3)]**-2, axis=1))
+
+    def get_results(self):
+        return self.contrast, self.contrast_err, self.params_dict
+
+    def plot(self, param_key, param_name_str, param_unit_str, legend_key, legend_name_str, ret=False):
+        """
+
+        """
+        fig, ax = plt.subplots(figsize=(7.5,5), dpi=300)
+        ax.errorbar(self.params_dict[param_key],
+                    self.weighted_mean_contrast,
+                    self.weighted_mean_contrast_err,
+                    mew=2.0, ls="", marker="s", mfc="w", mec="C0", ms=7, capsize=5, ecolor="C0",
+                    label=r"{} = {}".format(legend_name_str, self.params_dict[legend_key]),
+                   )
+
+        ax.tick_params("both", labelsize=16)
+        ax.set_xlabel(r"{} in [{}]".format(param_name_str, param_unit_str), fontsize=18) # r"$\tau_\mathrm{MIEZE}$ in [ns]"
+        ax.set_ylabel(r"Contrast in [arb. u.]", fontsize=18)
+        legend = ax.legend(loc="best", fontsize=13, markerscale=0.9)
+        if ret:
+            return fig, ax
+
+    def get_params(self, **param_keys):
+        """
+        Returns the metadata specified by keys. Can be either 'mainkey' or 'subkey'.
+        Returns the entire dictionary if no key is given.
+        --------------------------------------------------
+
+        Arguments:
+        ---------- 
+        *keys       : list  : list of keys for metadata retrieval
+
+        Returns:
+        ----------
+        seldict     : dict  : dictionary containing metadata {'mainkey' : subdict, 'subkey' : item ,...}
+        """
+
+        self.fileloader.instrumentloader.set_Loader_settings(rawdata=False)
+        seldict = {}
+        for redobj in self.red_list:
+            self.fileloader.read_out_data(redobj.filespecifier)
+            metadata = self.fileloader.datadict["metadata"]
+            for key, alias in param_keys.items():
+                for subdict in metadata.values():
+                    if key in subdict.keys() and alias in seldict.keys():
+                        if isinstance(subdict[key][0], float):
+                            seldict[alias].append(subdict[key][0])
+                        else:
+                            seldict[alias].append(0)
+                    elif key in subdict.keys():
+                        if isinstance(subdict[key][0], float):
+                            seldict[alias] = [subdict[key][0]]
+                        else:
+                            seldict[alias] = [0]
+        for k, vs in seldict.items():
+            if np.isclose(max(vs), min(vs)):
+                seldict[k] = max(vs)
+
+        return seldict

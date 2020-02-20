@@ -176,6 +176,52 @@ def quickplotHistogram(histdata, bins=None, output=False):
     
     if output:
         return hist, bin_edges
-        
-        
-    
+
+#-----------------------------------------------------------------------------
+
+def uncertainty_propagation_mult_div(*vals_errs_inv):
+    """
+    Uncertainty propagation for multiplication and division.
+
+    Assumes normal distributed values --> sum of squared rel. uncertainties.
+    A value set will be combined using multiplication (..., ..., False) or
+    division (..., ..., True).
+
+    Parameters
+    ----------
+    vals_errs_inv : tuple
+        A vals_errs_iv tuple has the following structure:
+        (value -> float/ndarray, errors -> float/ndarray, bool)
+
+    Returns
+    -------
+    comb_values : float/numpy.ndarray
+        Combination of values using mult. and div.
+        KEEPS ARRAY DIMENSIONS!
+    comb_values_errors : float/numpy.ndarray
+        Propagated errors of the values
+
+    Examples
+    -------
+    >>> uncertainty_propagatio_mult_div((1, 0.1, False),
+                                        (2, 0.2, True)
+                                       )
+    (0.5, 0.07071067811865477)
+    """
+    vals, errs, inv = [], [], []
+    comb_vals = None
+    sqr_err_sum = 0.0
+    for v, e, i in vals_errs_inv:
+        if np.any(comb_vals):
+            if i:
+                comb_vals /= v
+            else:
+                comb_vals *= v
+        else:
+            if i:
+                comb_vals = 1./v
+            else:
+                comb_vals = v
+        sqr_err_sum += (e/v)**2
+
+    return comb_vals, comb_vals * np.sqrt(sqr_err_sum)
