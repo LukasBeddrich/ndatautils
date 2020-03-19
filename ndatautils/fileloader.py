@@ -359,7 +359,8 @@ class ASCIILoader(FileLoaderBase):
                                 metadict[currentkey][temp[0].strip()] = float(val_result[0])
                             except:
                                 print("The encountered 'val_result' was neither a integer as string, nor a flaotable string")
-                                raise
+                            finally:
+                                metadict[currentkey][temp[0].strip()] = val_result[0]
 
                     else:
                         metadict[currentkey][temp[0].strip()] = temp[1].strip()
@@ -405,9 +406,12 @@ class ASCIILoader(FileLoaderBase):
                 self.datadict.update({'metadata' : self._meta_data(fnum)})
                 names = self.datadict['metadata']['Scan data']['names']
 
-            dtype = self.instrumentloader.dtype_from_string_array(data_as_string[0], names)
-
-            return np.array(list(zip(*data_as_string.T)), dtype = dtype)
+            if len(data_as_string.shape) < 2:
+                dtype = self.instrumentloader.dtype_from_string_array(data_as_string, names)
+                return np.array([tuple(data_as_string)], dtype=dtype)
+            else:
+                dtype = self.instrumentloader.dtype_from_string_array(data_as_string[0], names)
+                return np.array(list(zip(*data_as_string.T)), dtype = dtype)
         else:
             raise IOError("The data format is not correctly specified!")
 
