@@ -315,8 +315,11 @@ class ReductionStructure:
         self.params_dict = self.get_params(**param_keys)
 
         for redobj in self.red_list:
-            center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
-            lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+            if "lrbt" not in self.kwargs.keys():
+                center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
+                lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+            else:
+                lrbt = self.kwargs["lrbt"]
 
 
             redobj.prepare_fit_data(lrbt=lrbt)
@@ -339,7 +342,23 @@ class ReductionStructure:
 
     def plot(self, param_key, param_name_str, param_unit_str, legend_key, legend_name_str, ret=False):
         """
+        Quick plot option to visualize 'parameter' vs 'weighted_mean_contrast'
 
+        Parameters
+        ----------
+        param_key       : str
+            key to parameter in self.param_dict plotted on X axis
+        param_name_str  : str
+            name of parameter used for X axis label
+        param_unit_str  : str
+            unit of parameter used for X axis label
+        legend_key      : str
+            key to parameter of the plotted curve used in legend description
+        legend_name_str : str
+            name of parameter used in legend description
+        ret             : bool
+            True    --> returns fig, ax
+            False   --> does not return fig, ax
         """
         fig, ax = plt.subplots(figsize=(7.5,5), dpi=300)
         ax.errorbar(self.params_dict[param_key],
@@ -393,3 +412,24 @@ class ReductionStructure:
                 seldict[k] = max(vs)
 
         return seldict
+
+    def to_file(self, fpath):
+        nfoils = self.contrast.shape[1]
+        nrows = len(self.weighted_mean_contrast)
+        warr = np.empty((nrows, 2*nfoils + 2 + len(self.params_dict)))
+        warr[:,-2-2*nfoils] = self.weighted_mean_contrast
+        warr[:,-1-2*nfoils] = self.weighted_mean_contrast_err
+        warr[:,-2*nfoils::2] = self.contrast
+        warr[:,-2*nfoils+1::2] = self.contrast_err
+        for idx, (pkey, params) in enumerate(self.params_dict.items()):
+            if type(params) is not list:
+                warr[:,idx] = nrows * [params]
+            else:
+                warr[:,idx] = params
+
+        with open(fpath, "w") as wfile:
+            contrast_descr = ["C weighted av.      , C weighted av. err  "] + [ ", ".join((f"{f'C foil {i+1}':20}", f"{f'C err foil {i+1}':20}")) for i in range(4)]
+            param_descr = ", ".join([f"{f'### {key}':20}" if idx == 0 else f"{f'{key}':20}" for idx, key in enumerate(self.params_dict.keys())])
+            wfile.write(param_descr + ", " + ", ".join(contrast_descr) + "\n")
+            for slic in warr:
+                wfile.write(", ".join([f"{f'{v:.15f}':20}" for v in slic]) + "\n")
