@@ -214,7 +214,9 @@ class Reduction:
             self.model.set_param_hint("omega", value=2*pi/16, vary=False)
             self.model.set_param_hint("phi", min=0.0, max=2*pi, value=((2 - np.argmax(preped_data) * 1/8 + 1/2)%2)*pi)
             self.model.set_param_hint("y0", min=0.0, value=np.mean(preped_data))
-            
+
+            weights = np.where(np.isnan(weights), np.zeros(len(weights)), weights)
+            weights = np.where(np.isinf(weights), np.zeros(len(weights)), weights)
             sfit_res = self.model.fit(x=x, data=preped_data, weights=weights)
             
             if full_fit_res: # Abbort if I detect a problem with calculating contrast or its error
@@ -243,7 +245,7 @@ class Reduction:
 
 #---------------------------------------------------------------------------------------------------
 
-    def run_job(self, job):
+    def run_reduction(self, job, **kwargs):
         """
         Starts fitting of the data, according to a specified 'job'
 
@@ -255,23 +257,99 @@ class Reduction:
         Return
         ------
         """
-        if job.lower() == "individual_fitting":
-            self.run_fits()
+        if job.lower() == "simple_fit":
+            self.run_fits(**kwargs)
+        elif job.lower() == "bootstrap":
+            self.run_bootstrap_fit(**kwargs)
         elif job.lower() == "superimposed_fitting":
             raise NotImplementedError
         else:
             raise KeyError("The execution of the requested job failed. Job specifier not known.")
 
-
 #---------------------------------------------------------------------------------------------------
 
-    def run_fits(self):
+    def run_fits(self, **kwargs):
         """
-        
+        Runs a single sine fit to the data chosen in a ROI.
+        One of the following parameter specifying the ROI
+        needs to be given.
+
+        Parameters
+        ----------
+        lbwh        : list
+            ROI specified as [left, bottom, width, height]
+        lrbt        : list
+            ROI specified as [left, right, bottom, top]
+        pre_maks    :
+            ROI specified as numpy.ndarray
         """
+        kwargs_dict = {
+            "lrbt" : None,
+            "lbwh" : None,
+            "pre_mask" : None
+        }
+        kwargs_dict.update(kwargs)
+
+        if not all(kwargs.values()):
+            center = fit_beam_center(np.sum(np.sum(self.rawdata, axis=0), axis=0))
+            kwargs["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+
+        self.prepare_fit_data(**kwargs_dict)
         self.fit_dict = {}
         for idx, foilind in enumerate(self.relevant_foils):
             self.fit_dict[foilind] = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
+
+#---------------------------------------------------------------------------------------------------
+
+    def run_bootstrap_fit(self, **kwargs):
+        """
+
+        """
+        bootstrap_pars = {
+            "center" : 10,
+            "sigma" : 5,
+            "steps" : 1000
+        }
+        bootstrap_pars.update(kwargs)
+        self.fit_dict = {}
+
+        ### Generate some random number ROIs
+        randn_lrbt = np.abs(
+            np.random.normal(
+                bootstrap_pars["center"],
+                bootstrap_pars["sigma"],
+                (bootstrap_pars["steps"], 4)
+            ).astype(int)
+        )
+
+        ### Compute beam center on detector
+        center = fit_beam_center(self.rawdata.sum(axis=0).sum(axis=0))
+
+        ### Bootstrap method
+        trackind = 0
+        tempcontrast = 0.0
+        fom = 0.0 # figure of merit contrast/contrast_err
+
+        for i, (a, b, c, d) in enumerate(randn_lrbt):
+            lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
+            self.prepare_fit_data(lrbt=lrbt)
+            resdict = self.single_fit(list(range(16)), self.preped_data[0], np.sqrt(self.preped_data[0])**-1)
+            ### compare with figure of merit: fom = tempcontrast/tempcontrast_err
+            if (fom < resdict["contrast"]/resdict["contrast_err"] or 
+                (tempcontrast < resdict["contrast"] and
+                 fom * 0.99 < resdict["contrast"]/resdict["contrast_err"])):
+                trackind = i
+                tempcontrast = resdict["contrast"]
+                fom = resdict["contrast"]/resdict["contrast_err"]
+
+        ### Run fit for the best lrbt combination and update with bootstrap params
+        a, b, c, d = randn_lrbt[trackind]
+        lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
+        self.prepare_fit_data(lrbt=lrbt)
+        for idx, foilind in enumerate(self.relevant_foils):
+            resdict = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
+            resdict.update({"bootstrap" : dict(zip(("center", "lrbt", "steps"),(center, lrbt, bootstrap_pars["steps"])))})
+            self.fit_dict[foilind] = resdict
 
 ##############################################################################
 ##############################################################################
@@ -292,11 +370,15 @@ class ReductionStructure:
         else:
             self.red_list = [Reduction(self.fileloader, f) for f in files]
     
-    def analyze(self, **param_keys):
+    def analyze(self, red_method, red_params, param_keys):
         """
         Run simple contrast calculation on all elements in self.red_list.
         Uses one rectangular area as mask.
 
+        red_method : str
+            chooses a reduction method in ["bootstrap", "simple_fit"]
+        red_params ; dict
+            will be passed to ``analyze´´ to specify reduction precedure
         param_keys : dict
             general sturcture is {'metadata_key' : 'alias', ...} where the
             'metadata_key' specifies an entry in the
@@ -314,16 +396,26 @@ class ReductionStructure:
         param_keys.update(dict([("echotime_value", "tau_M")])) # Standard add MIEZE time
         self.params_dict = self.get_params(**param_keys)
 
+        # for redobj in self.red_list:
+        #     if "lrbt" not in self.kwargs.keys():
+        #         center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
+        #         lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+        #     else:
+        #         lrbt = self.kwargs["lrbt"]
+
+
+        #     redobj.prepare_fit_data(lrbt=lrbt)
+        #     redobj.run_fits()
+        #     tc = []
+        #     tcerr = []
+        #     for foil in redobj.relevant_foils:
+        #         tc.append(redobj.fit_dict[foil]["contrast"])
+        #         tcerr.append(redobj.fit_dict[foil]["contrast_err"])
+        #     self.contrast.append(tc)
+        #     self.contrast_err.append(tcerr)
+
         for redobj in self.red_list:
-            if "lrbt" not in self.kwargs.keys():
-                center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
-                lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
-            else:
-                lrbt = self.kwargs["lrbt"]
-
-
-            redobj.prepare_fit_data(lrbt=lrbt)
-            redobj.run_fits()
+            redobj.run_reduction(job=red_method, **red_params)
             tc = []
             tcerr = []
             for foil in redobj.relevant_foils:
