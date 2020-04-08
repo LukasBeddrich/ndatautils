@@ -290,9 +290,9 @@ class Reduction:
         }
         kwargs_dict.update(kwargs)
 
-        if not all(kwargs.values()):
+        if not any(kwargs_dict.values()):
             center = fit_beam_center(np.sum(np.sum(self.rawdata, axis=0), axis=0))
-            kwargs["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
+            kwargs_dict["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
 
         self.prepare_fit_data(**kwargs_dict)
         self.fit_dict = {}
@@ -326,29 +326,33 @@ class Reduction:
         center = fit_beam_center(self.rawdata.sum(axis=0).sum(axis=0))
 
         ### Bootstrap method
-        trackind = 0
-        tempcontrast = 0.0
-        fom = 0.0 # figure of merit contrast/contrast_err
+        tempcontrasts = np.zeros((bootstrap_pars["steps"], 2))
 
         for i, (a, b, c, d) in enumerate(randn_lrbt):
             lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
             self.prepare_fit_data(lrbt=lrbt)
             resdict = self.single_fit(list(range(16)), self.preped_data[0], np.sqrt(self.preped_data[0])**-1)
-            ### compare with figure of merit: fom = tempcontrast/tempcontrast_err
-            if (fom < resdict["contrast"]/resdict["contrast_err"] or 
-                (tempcontrast < resdict["contrast"] and
-                 fom * 0.99 < resdict["contrast"]/resdict["contrast_err"])):
-                trackind = i
-                tempcontrast = resdict["contrast"]
-                fom = resdict["contrast"]/resdict["contrast_err"]
+            tempcontrasts[i] = resdict["contrast"], resdict["contrast_err"]
+        
+        ### Average over contrast values
+        nanidxs = np.where(~np.isnan(tempcontrasts).any(axis=1))[0]
+        contrast = np.average(tempcontrasts[nanidxs,0], weights=tempcontrasts[nanidxs,1]**-2)
+        contrast_err = ((tempcontrasts[nanidxs,1]**-2).sum())**-0.5
+        reprind = np.argmin(np.abs(np.where(np.isnan(tempcontrasts[:,0]), np.zeros(len(tempcontrasts)), tempcontrasts[:,0]) - contrast))
 
         ### Run fit for the best lrbt combination and update with bootstrap params
-        a, b, c, d = randn_lrbt[trackind]
+        a, b, c, d = randn_lrbt[reprind]
         lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
         self.prepare_fit_data(lrbt=lrbt)
         for idx, foilind in enumerate(self.relevant_foils):
             resdict = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
-            resdict.update({"bootstrap" : dict(zip(("center", "lrbt", "steps"),(center, lrbt, bootstrap_pars["steps"])))})
+            resdict.update({"bootstrap" : dict(
+                contrast=contrast,
+                contrast_err=contrast_err,
+                center=center,
+                lrbt=lrbt,
+                steps=bootstrap_pars["steps"]
+            )})
             self.fit_dict[foilind] = resdict
 
 ##############################################################################
