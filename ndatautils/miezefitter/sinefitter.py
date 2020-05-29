@@ -31,6 +31,18 @@ def lmfit_backend_fitting(self, x, preped_data, weights):
 def iminuit_backend_fitting():
     pass
     raise NotImplementedError
+#    return SineFitResultiminuit(backend_result)
+
+#------------------------------------------------------------------------------
+
+class SineFitter:
+    def __init__(self, fitfunc=None):
+        if fitfunc is not None:
+            self.fit = MethodType(fitfunc, self)
+
+    def fit(self):
+        pass
+        raise NotImplementedError
 
 ###############################################################################
 ###############################################################################
@@ -94,12 +106,3 @@ class SineFitResultiminuit(SineFitResult):
 ###############################################################################
 ###############################################################################
 ###############################################################################
-
-class SineFitter:
-    def __init__(self, fitfunc=None):
-        if fitfunc is not None:
-            self.fit = MethodType(fitfunc, self)
-
-    def fit(self):
-        pass
-        raise NotImplementedError
