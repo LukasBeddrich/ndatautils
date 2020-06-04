@@ -143,7 +143,7 @@ class AveragingReductionJobResult(ReductionJobResult):
 
 class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
     def __init__(self, *sinefitterresults, **kwargs):
-        self.contrast_err = None
+        self.contrast = None
         self.contrast_err = None
 
         self.sinefitterresults = sinefitterresults
@@ -156,6 +156,22 @@ class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
 
         self.contrast = np.nansum(self.contrast[foilsidx] * self.contrast_err[foilsidx]**-2) / np.nansum(self.contrast_err[foilsidx]**-2)
         self.contrast_err = np.nansum(self.contrast_err[foilsidx]**-2)**-0.5
+
+#------------------------------------------------------------------------------
+
+class SelectedFoilReductionJobResult(ReductionJobResult):
+    def __init__(self, *sinefitterresults, **kwargs):
+        self.contrast = None
+        self.contrast_err = None
+
+        self.sinefitterresults = sinefitterresults
+
+        self.populate(kwargs['idx'])
+
+    def populate(self, idx):
+        self.contrast = self.sinefitterresults[idx].resdict["contrast"]
+        self.contrast_err = self.sinefitterresults[idx].resdict["contrast_err"]
+
 
 ###############################################################################
 ###############################################################################
@@ -175,3 +191,4 @@ class ReductionJobResultFactory:
 result_factory = ReductionJobResultFactory()
 result_factory.add_result_format("allaverage", AveragingReductionJobResult)
 result_factory.add_result_format("selectiveaverage", SelctedFoilAveragingReductionJobResult)
+result_factory.add_result_format("selectfoil", SelectedFoilReductionJobResult)
