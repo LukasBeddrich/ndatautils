@@ -7,12 +7,11 @@ from abc import ABC, abstractmethod
 ###############################################################################
 
 class ReductionJob(ABC):
-    def __init__(self, selected_data, sinefitter):
-        self.selected_data = selected_data
+    def __init__(self, sinefitter):
         self.sinefitter = sinefitter
 
     @abstractmethod
-    def run(self):
+    def run(self, selected_data):
         pass
 
     @staticmethod
@@ -44,8 +43,8 @@ class ReductionJob(ABC):
 ###############################################################################
 
 class ROIReductionJob(ReductionJob):
-    def __init__(self, selected_data, sinefitter, job_kwargs={}, result_kwargs={}, **kwargs):
-        super().__init__(selected_data, sinefitter)
+    def __init__(self, sinefitter, job_kwargs={}, result_kwargs={}, **kwargs):
+        super().__init__(sinefitter)
         self.job_kwargs = {
             "lrbt" : None,
             "lbwh" : None,
@@ -61,10 +60,10 @@ class ROIReductionJob(ReductionJob):
 #            center = fit_beam_center(np.sum(np.sum(self.rawdata, axis=0), axis=0))
 #            kwargs_dict["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
 
-    def run(self):
+    def run(self, selected_data):
         sine_fit_result_list = []
         if any(self.job_kwargs.values()):
-            for dataarray in self.selected_data:
+            for dataarray in selected_data:
                 temp_roi_counts = self.prepare_fit_data(dataarray, **self.job_kwargs)
                 sine_fit_result_list.append( self.sinefitter.fit(np.arange(16), temp_roi_counts, temp_roi_counts**0.5) )
             return result_factory.create(*sine_fit_result_list, **self.result_kwargs)
@@ -75,8 +74,8 @@ class ROIReductionJob(ReductionJob):
 #------------------------------------------------------------------------------
 
 class MultiROIReductionJob(ReductionJob):
-    def __init__(self, selected_data, sinefitter, **kwargs):
-        super().__init__(selected_data, sinefitter)
+    def __init__(self, sinefitter, **kwargs):
+        super().__init__(sinefitter)
         self.job_kwargs = {
             "lrbt" : None,
             "lbwh" : None,
@@ -84,11 +83,11 @@ class MultiROIReductionJob(ReductionJob):
         }
         self.job_kwargs.update(kwargs)
 
-    def run(self):
+    def run(self, selected_data):
         raise NotImplementedError("This has not been properly implemented yet!")
         sine_fit_result_list = []
         if any(self.job_kwargs.values()):
-            for idx, dataarray in enumerate(self.selected_data):
+            for idx, dataarray in enumerate(selected_data):
                 temp_roi_counts = self.prepare_fit_data(dataarray, **self.select_kwargs(idx))
                 sine_fit_result_list.append( self.sinefitter.fit(np.arange(16), temp_roi_counts, temp_roi_counts**0.5) )
             return AveragingReductionJobResult(*sine_fit_result_list)

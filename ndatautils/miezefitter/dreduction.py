@@ -89,7 +89,7 @@ class Reduction:
     
     """
 
-    def __init__(self, fileloader, filespecifier, backend="lmfit"):
+    def __init__(self, fileloader, reductionjob, filespecifier):
         """
         Initializes a Reduction instance
         
@@ -100,9 +100,9 @@ class Reduction:
             a '.tof' file as created by NICOS from a CASCADE detector's output.
         filespecifier : int
             integer value that specifies a certain ".tof" file for reduction
-        backend : str
-            - lmfit: uses `lmfit´ package for fitting
-            - iminuit: uses `iminuit´ package for fitting
+        reductionjob : ReductionJob
+            A ReductionJob object that handles reduction of raw data arrays
+            via reductionjob.run(selected_data)
 
         Return
         ------
@@ -111,249 +111,44 @@ class Reduction:
         -----
         """
 
-        self.fileloader = fileloader
+        self.relevant_foils = fileloader.instrumentloader.get_Loader_settings("foils")
         self.filespecifier = filespecifier
-        self.instrumentloader = fileloader.instrumentloader
-        self.relevant_foils = self.instrumentloader.get_Loader_settings("foils")
-        self.backend = backend
         self.rawdata = None
-        self.preped_data = None
-        self.fit_dict = None
-        
-        self.get_data_from_file()
-        self.create_model()
+        self.metadata = None
+        self.reductionjob = reductionjob
+        self.reductionjobresult = None
+
+        self.get_data_from_file(fileloader)
 
 #---------------------------------------------------------------------------------------------------
 
-    def get_data_from_file(self):
+    def get_data_from_file(self, fileloader):
         """
-        
+        Retrieves Cascade data array and meta data from fileloader
+
+        Parameters
+        ----------
+        fileloader : subclass of(or) fileloader.FileLoaderBase
+            FileLoaderBase or derived object to retrieve the required data of
+            a '.tof' file as created by NICOS from a CASCADE detector's output.
+
+        Returns
+        -------
         """
-        self.fileloader.read_out_data(self.filespecifier)
+        fileloader.read_out_data(self.filespecifier)
+        self.metadata = fileloader.datadict['metadata']
+
         self.rawdata = np.zeros((len(self.relevant_foils), 16, 128, 128))
         for idx, foilind in enumerate(self.relevant_foils):
-            self.rawdata[idx] = self.fileloader.datadict['rawdata'][foilind]
+            self.rawdata[idx] = fileloader.datadict['rawdata'][foilind]
 
 #---------------------------------------------------------------------------------------------------
 
-    def create_model(self):
+    def run(self):
         """
-        Creates a lmfit.Model or iminuit.Minuit object to fit the MIEZE signal.
-
-        Parameters
-        ----------
-        self.backend : str
-            - lmfit: uses `lmfit´ package for fitting
-            - iminuit: uses `iminuit´ package for fitting
-
-        Notes
-        -----
-        Only `lmfit´ works as a backend for fitting.
+        Runs the reductionjob and saves result in self.reductionjobresult
         """
-        self.model = create_model(sine, self.backend)
-
-#---------------------------------------------------------------------------------------------------
-#
-#    def set_model_params(self):
-#        """
-#
-#        """
-#
-#---------------------------------------------------------------------------------------------------
-
-    def prepare_fit_data(self, lbwh=None, lrbt=None, pre_mask=None):
-        """
-        Prepare the raw data for fit by summing counts in ROI.
-        Populates self.preped_data
-
-        Parameters
-        ----------
-        lbwh : [left, bottom, width, height], None
-            integer values in 128x128 to specify ROI
-        lrbt : [left, right, bottom, top], None
-            integer values in 128x128 to specify ROI
-        pre_mask : pre_mask object or numpy.ndarray
-            mask/mask-array that specifies a ROI
-        """
-        self.preped_data = np.zeros(self.rawdata.shape[:2])
-        if (bool(lbwh), bool(lrbt), bool(pre_mask)) == (True, False, False):
-            left, bottom, width, height = lbwh
-            self.preped_data = np.sum(np.sum(self.rawdata[:,:,:,left:left+width], axis=-1)[:,:,bottom:bottom+height], axis=-1)
-        elif (bool(lbwh), bool(lrbt), bool(pre_mask)) == (False, True, False):
-            left, right, bottom, top = lrbt
-            self.preped_data = np.sum(np.sum(self.rawdata[:,:,:,left:right], axis=-1)[:,:,bottom:top], axis=-1)
-        elif (bool(lbwh), bool(lrbt), bool(pre_mask)) == (False, False, True):
-            raise NotImplementedError
-        else:
-            raise ValueError("Preparation of fitting data failed. ROI specification required.")
-
-#---------------------------------------------------------------------------------------------------
-
-    def single_fit(self, x, preped_data, weights, full_fit_res=False):
-        """
-        Fits a sine curve into a prepared data set.
-        
-        Parameters
-        ----------
-        x : numpy.ndarray
-            x-coordinate value
-        prepared_data : numpy.ndarray
-            one period of the time modulated neutron intensity
-        weights : numpy.ndarray
-            weights for the residuals in the chi square fit
-
-        Return
-        ------
-        result_dict : dict
-            summarized information of the fit
-        """
-        result_dict = {}
-        if self.backend.upper() == "LMFIT":
-            
-            self.model.set_param_hint("A", min=0.0, value=(max(preped_data) - min(preped_data))/2.0)
-            self.model.set_param_hint("omega", value=2*pi/16, vary=False)
-            self.model.set_param_hint("phi", min=0.0, max=2*pi, value=((2 - np.argmax(preped_data) * 1/8 + 1/2)%2)*pi)
-            self.model.set_param_hint("y0", min=0.0, value=np.mean(preped_data))
-
-            weights = np.where(np.isnan(weights), np.zeros(len(weights)), weights)
-            weights = np.where(np.isinf(weights), np.zeros(len(weights)), weights)
-            sfit_res = self.model.fit(x=x, data=preped_data, weights=weights)
-            
-            if full_fit_res: # Abbort if I detect a problem with calculating contrast or its error
-                return sfit_res
-
-            result_dict["contrast"] = sfit_res.params["A"].value / sfit_res.params["y0"].value
-            try:
-                result_dict["contrast_err"] = result_dict["contrast"] * np.sqrt((sfit_res.params["A"].stderr/sfit_res.params["A"].value)**2 + (sfit_res.params["y0"].stderr/sfit_res.params["y0"].value)**2)
-            except TypeError:
-                result_dict["contrast_err"] = np.nan
-            result_dict["phase"] = sfit_res.params["phi"].value
-            result_dict["phase_err"] = sfit_res.params["phi"].stderr
-            result_dict["chisqr"] = sfit_res.chisqr
-            result_dict["redchi"] = sfit_res.redchi
-            result_dict["success"] = sfit_res.success
-            result_dict["raw_fit_vals"] = {"A" : sfit_res.params["A"].value,
-                                           "omega" : sfit_res.params["omega"].value,
-                                           "phi" : sfit_res.params["phi"].value,
-                                           "y0" : sfit_res.params["y0"].value
-                                           }
-            
-        elif self.backend.lower() == "iminuit":
-            raise NotImplementedError
-
-        return result_dict
-
-#---------------------------------------------------------------------------------------------------
-
-    def run_reduction(self, job, **kwargs):
-        """
-        Starts fitting of the data, according to a specified 'job'
-
-        Parameters
-        ----------
-        job : str
-            specifies what to do
-
-        Return
-        ------
-        """
-        if job.lower() == "simple_fit":
-            self.run_fits(**kwargs)
-        elif job.lower() == "bootstrap":
-            self.run_bootstrap_fit(**kwargs)
-        elif job.lower() == "superimposed_fitting":
-            raise NotImplementedError
-        else:
-            raise KeyError("The execution of the requested job failed. Job specifier not known.")
-
-#---------------------------------------------------------------------------------------------------
-
-    def run_fits(self, **kwargs):
-        """
-        Runs a single sine fit to the data chosen in a ROI.
-        One of the following parameter specifying the ROI
-        needs to be given.
-
-        Parameters
-        ----------
-        lbwh        : list
-            ROI specified as [left, bottom, width, height]
-        lrbt        : list
-            ROI specified as [left, right, bottom, top]
-        pre_maks    :
-            ROI specified as numpy.ndarray
-        """
-        kwargs_dict = {
-            "lrbt" : None,
-            "lbwh" : None,
-            "pre_mask" : None
-        }
-        kwargs_dict.update(kwargs)
-
-        if not any(kwargs_dict.values()):
-            center = fit_beam_center(np.sum(np.sum(self.rawdata, axis=0), axis=0))
-            kwargs_dict["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
-
-        self.prepare_fit_data(**kwargs_dict)
-        self.fit_dict = {}
-        for idx, foilind in enumerate(self.relevant_foils):
-            self.fit_dict[foilind] = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
-
-#---------------------------------------------------------------------------------------------------
-
-    def run_bootstrap_fit(self, **kwargs):
-        """
-
-        """
-        bootstrap_pars = {
-            "center" : 10,
-            "sigma" : 5,
-            "steps" : 1000
-        }
-        bootstrap_pars.update(kwargs)
-        self.fit_dict = {}
-
-        ### Generate some random number ROIs
-        randn_lrbt = np.abs(
-            np.random.normal(
-                bootstrap_pars["center"],
-                bootstrap_pars["sigma"],
-                (bootstrap_pars["steps"], 4)
-            ).astype(int)
-        )
-
-        ### Compute beam center on detector
-        center = fit_beam_center(self.rawdata.sum(axis=0).sum(axis=0))
-
-        ### Bootstrap method
-        tempcontrasts = np.zeros((bootstrap_pars["steps"], 2))
-
-        for i, (a, b, c, d) in enumerate(randn_lrbt):
-            lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
-            self.prepare_fit_data(lrbt=lrbt)
-            resdict = self.single_fit(list(range(16)), self.preped_data[0], np.sqrt(self.preped_data[0])**-1)
-            tempcontrasts[i] = resdict["contrast"], resdict["contrast_err"]
-        
-        ### Average over contrast values
-        nanidxs = np.where(~np.isnan(tempcontrasts).any(axis=1))[0]
-        contrast = np.average(tempcontrasts[nanidxs,0], weights=tempcontrasts[nanidxs,1]**-2)
-        contrast_err = ((tempcontrasts[nanidxs,1]**-2).sum())**-0.5
-        reprind = np.argmin(np.abs(np.where(np.isnan(tempcontrasts[:,0]), np.zeros(len(tempcontrasts)), tempcontrasts[:,0]) - contrast))
-
-        ### Run fit for the best lrbt combination and update with bootstrap params
-        a, b, c, d = randn_lrbt[reprind]
-        lrbt = [int(center[1]) - a, int(center[1]) + b, int(center[0]) - c, int(center[0]) + d]
-        self.prepare_fit_data(lrbt=lrbt)
-        for idx, foilind in enumerate(self.relevant_foils):
-            resdict = self.single_fit(list(range(16)), self.preped_data[idx], np.sqrt(self.preped_data[idx])**-1)
-            resdict.update({"bootstrap" : dict(
-                contrast=contrast,
-                contrast_err=contrast_err,
-                center=center,
-                lrbt=lrbt,
-                steps=bootstrap_pars["steps"]
-            )})
-            self.fit_dict[foilind] = resdict
+        self.reductionjobresult = self.reductionjob.run(self.rawdata)
 
 ##############################################################################
 ##############################################################################
@@ -367,6 +162,7 @@ class ReductionStructure:
         """
         
         """
+        print("Instantiation will fail, not compatible with new `Redutction´ implementation!")
         self.fileloader = fileloader
         self.kwargs = kwargs
         if len(files) == 0:
