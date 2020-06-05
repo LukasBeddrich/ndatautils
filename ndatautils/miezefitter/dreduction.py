@@ -158,27 +158,45 @@ class ReductionStructure:
     """
     
     """
-    def __init__(self, fileloader, *files, **kwargs):
+    def __init__(self, *reductions, **kwargs):
         """
-        
+        Constructor with Reduction objects
         """
-        print("Instantiation will fail, not compatible with new `Redutction´ implementation!")
-        self.fileloader = fileloader
+        self.contrast = None
+        self.contrast_err = None
+        self.params_dict = None
         self.kwargs = kwargs
-        if len(files) == 0:
+        if len(reductions) == 0:
             self.red_list = []
         else:
-            self.red_list = [Reduction(self.fileloader, f) for f in files]
-    
-    def analyze(self, red_method, red_params, param_keys):
-        """
-        Run simple contrast calculation on all elements in self.red_list.
-        Uses one rectangular area as mask.
+            self.red_list = list(reductions)
 
-        red_method : str
-            chooses a reduction method in ["bootstrap", "simple_fit"]
-        red_params ; dict
-            will be passed to ``analyze´´ to specify reduction precedure
+#------------------------------------------------------------------------------
+
+    @classmethod
+    def from_tuple(cls, *components, **kwargs):
+        """
+        Alternate constructor from a tuple of Reduction components
+
+        Parameters
+        ----------
+        *components : tuple(s)
+            each compnents tuple needs:
+            - fileloader derived from ndatautils.fileloader.FileLoaderBase
+            - reductionjob derived from ndatautils.miezefitter.reductionjob.ReductionJob
+            - filespecifier integer value of the file
+        """
+        return cls(*[Reduction(fileloader, reductionjob, filespecifier) for fileloader, reductionjob, filespecifier in components], **kwargs)
+
+#------------------------------------------------------------------------------
+    
+    def analyze(self, param_keys):
+        """
+        Runs contrast extraction on all elements in self.red_list
+        via their ReductionJob instance.
+        Simultaneously, retrieves specified measurement parameters
+        from each object in self.red_list
+
         param_keys : dict
             general sturcture is {'metadata_key' : 'alias', ...} where the
             'metadata_key' specifies an entry in the
@@ -193,79 +211,16 @@ class ReductionStructure:
         self.contrast = []
         self.contrast_err = []
 
-        param_keys.update(dict([("echotime_value", "tau_M")])) # Standard add MIEZE time
+        param_keys.update({"echotime_value" : "tau_M"}) # Standard add MIEZE time
         self.params_dict = self.get_params(**param_keys)
 
-        # for redobj in self.red_list:
-        #     if "lrbt" not in self.kwargs.keys():
-        #         center = fit_beam_center(np.sum(np.sum(redobj.rawdata, axis=0), axis=0))
-        #         lrbt = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
-        #     else:
-        #         lrbt = self.kwargs["lrbt"]
-
-
-        #     redobj.prepare_fit_data(lrbt=lrbt)
-        #     redobj.run_fits()
-        #     tc = []
-        #     tcerr = []
-        #     for foil in redobj.relevant_foils:
-        #         tc.append(redobj.fit_dict[foil]["contrast"])
-        #         tcerr.append(redobj.fit_dict[foil]["contrast_err"])
-        #     self.contrast.append(tc)
-        #     self.contrast_err.append(tcerr)
-
         for redobj in self.red_list:
-            redobj.run_reduction(job=red_method, **red_params)
-            tc = []
-            tcerr = []
-            for foil in redobj.relevant_foils:
-                tc.append(redobj.fit_dict[foil]["contrast"])
-                tcerr.append(redobj.fit_dict[foil]["contrast_err"])
-            self.contrast.append(tc)
-            self.contrast_err.append(tcerr)
-
-        self.contrast = np.array(self.contrast)
-        self.contrast_err = np.array(self.contrast_err)
-        self.weighted_mean_contrast = np.nansum(self.contrast[:,(0,2,3)]*self.contrast_err[:,(0,2,3)]**-2, axis=1)/np.nansum(self.contrast_err[:,(0,2,3)]**-2, axis=1)
-        self.weighted_mean_contrast_err = np.sqrt(1 / np.nansum(self.contrast_err[:,(0,2,3)]**-2, axis=1))
+            redobj.run()
+            self.contrast.append(redobj.reductionjobresult.contrast)
+            self.contrast_err.append(redobj.reductionjobresult.contrast_err)
 
     def get_results(self):
         return self.contrast, self.contrast_err, self.params_dict
-
-    def plot(self, param_key, param_name_str, param_unit_str, legend_key, legend_name_str, ret=False):
-        """
-        Quick plot option to visualize 'parameter' vs 'weighted_mean_contrast'
-
-        Parameters
-        ----------
-        param_key       : str
-            key to parameter in self.param_dict plotted on X axis
-        param_name_str  : str
-            name of parameter used for X axis label
-        param_unit_str  : str
-            unit of parameter used for X axis label
-        legend_key      : str
-            key to parameter of the plotted curve used in legend description
-        legend_name_str : str
-            name of parameter used in legend description
-        ret             : bool
-            True    --> returns fig, ax
-            False   --> does not return fig, ax
-        """
-        fig, ax = plt.subplots(figsize=(7.5,5), dpi=300)
-        ax.errorbar(self.params_dict[param_key],
-                    self.weighted_mean_contrast,
-                    self.weighted_mean_contrast_err,
-                    mew=2.0, ls="", marker="s", mfc="w", mec="C0", ms=7, capsize=5, ecolor="C0",
-                    label=r"{} = {}".format(legend_name_str, self.params_dict[legend_key]),
-                   )
-
-        ax.tick_params("both", labelsize=16)
-        ax.set_xlabel(r"{} in [{}]".format(param_name_str, param_unit_str), fontsize=18) # r"$\tau_\mathrm{MIEZE}$ in [ns]"
-        ax.set_ylabel(r"Contrast in [arb. u.]", fontsize=18)
-        legend = ax.legend(loc="best", fontsize=13, markerscale=0.9)
-        if ret:
-            return fig, ax
 
     def get_params(self, **param_keys):
         """
@@ -281,12 +236,9 @@ class ReductionStructure:
         ----------
         seldict     : dict  : dictionary containing metadata {'mainkey' : subdict, 'subkey' : item ,...}
         """
-
-        self.fileloader.instrumentloader.set_Loader_settings(rawdata=False)
         seldict = {}
         for redobj in self.red_list:
-            self.fileloader.read_out_data(redobj.filespecifier)
-            metadata = self.fileloader.datadict["metadata"]
+            metadata = redobj.metadata
             for key, alias in param_keys.items():
                 for subdict in metadata.values():
                     if key in subdict.keys() and alias in seldict.keys():
@@ -306,22 +258,56 @@ class ReductionStructure:
         return seldict
 
     def to_file(self, fpath):
-        nfoils = self.contrast.shape[1]
-        nrows = len(self.weighted_mean_contrast)
-        warr = np.empty((nrows, 2*nfoils + 2 + len(self.params_dict)))
-        warr[:,-2-2*nfoils] = self.weighted_mean_contrast
-        warr[:,-1-2*nfoils] = self.weighted_mean_contrast_err
-        warr[:,-2*nfoils::2] = self.contrast
-        warr[:,-2*nfoils+1::2] = self.contrast_err
-        for idx, (pkey, params) in enumerate(self.params_dict.items()):
+        nrows = len(self.contrast)
+        warr = np.empty((nrows, 2 + len(self.params_dict)))
+        warr[:,-2] = self.contrast
+        warr[:,-1] = self.contrast_err
+        for idx, params in enumerate(self.params_dict.values()):
             if type(params) is not list:
                 warr[:,idx] = nrows * [params]
             else:
                 warr[:,idx] = params
 
         with open(fpath, "w") as wfile:
-            contrast_descr = ["C weighted av.      , C weighted av. err  "] + [ ", ".join((f"{f'C foil {i+1}':20}", f"{f'C err foil {i+1}':20}")) for i in range(4)]
+            contrast_descr = ["Contrast            , Contrast Error      "]
             param_descr = ", ".join([f"{f'### {key}':20}" if idx == 0 else f"{f'{key}':20}" for idx, key in enumerate(self.params_dict.keys())])
             wfile.write(param_descr + ", " + ", ".join(contrast_descr) + "\n")
             for slic in warr:
                 wfile.write(", ".join([f"{f'{v:.15f}':20}" for v in slic]) + "\n")
+
+    def plot(self, legend_key, legend_name_str, legend_unit_str, param_key='tau_M', param_name_str='$\\tau_\\mathrm{M}$', param_unit_str='ns', ret=False):
+        """
+        Quick plot option to visualize 'parameter' vs 'contrast'
+
+        Parameters
+        ----------
+        legend_key      : str
+            key to parameter of the plotted curve used in legend description
+        legend_name_str : str
+            name of parameter used in legend description
+        legend_unit_str  : str
+            unit of parameter used in legend description
+        param_key       : str
+            key to parameter in self.param_dict plotted on X axis
+        param_name_str  : str
+            name of parameter used for X axis label
+        param_unit_str  : str
+            unit of parameter used for X axis label
+        ret             : bool
+            True    --> returns fig, ax
+            False   --> does not return fig, ax
+        """
+        fig, ax = plt.subplots(figsize=(7.5,5), dpi=200)
+        ax.errorbar(self.params_dict[param_key],
+                    self.contrast,
+                    self.contrast_err,
+                    mew=2.0, ls="", marker="s", mfc="w", mec="C0", ms=7, capsize=5, ecolor="C0",
+                    label=f"{legend_name_str} = {self.params_dict[legend_key]} [{legend_unit_str}]",
+                   )
+
+        ax.tick_params("both", labelsize=16)
+        ax.set_xlabel(f"{param_name_str} in [{param_unit_str}]", fontsize=18) # r"$\tau_\mathrm{MIEZE}$ in [ns]"
+        ax.set_ylabel("Contrast in [arb. u.]", fontsize=18)
+        ax.legend(loc="best", fontsize=13, markerscale=0.9)
+        if ret:
+            return fig, ax

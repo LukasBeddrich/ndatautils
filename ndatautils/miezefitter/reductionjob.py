@@ -209,7 +209,7 @@ class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
             arbitrary number of intermediate SineFitterResult objects
             to be processed into the final result
         **kwargs : dict
-            'foilsdix' : list with viable indices for averaging
+            'foilsidx' : list with viable indices for averaging
         """
         self.contrast = None
         self.contrast_err = None
@@ -229,7 +229,7 @@ class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
 
 class SelectedFoilReductionJobResult(ReductionJobResult):
     """
-    Instance of a ReductionJobResult subclass that stores
+    ReductionJobResult subclass that stores
     a the contrast and its error of a selected sinefitterresult
     """
     def __init__(self, *sinefitterresults, **kwargs):
@@ -253,6 +253,33 @@ class SelectedFoilReductionJobResult(ReductionJobResult):
         self.contrast = self.sinefitterresults[idx].resdict["contrast"]
         self.contrast_err = self.sinefitterresults[idx].resdict["contrast_err"]
 
+#------------------------------------------------------------------------------
+
+class FitparReductionJobResult(ReductionJobResult):
+    """
+    ReductionJobResult that stores the fit values and their errors
+    for each by index selected SineFitResult
+    """
+    def __init__(self, *sinefitterresults, **kwargs):
+        """
+        Parameters
+        ----------
+        *sinefitterresults : ..sinefitter.SineFitterResult
+            arbitrary number of intermediate SineFitterResult objects
+            to be processed into the final result
+        **kwargs : dict
+            'foilsidx' : iterable with viable indices for retrieving fit vals
+        """
+        self.contrast = None
+        self.contrast_err = None
+
+        self.sinefitterresults = sinefitterresults
+
+        self.populate(kwargs['foilsidx'])
+
+    def populate(self, foilsidx):
+        self._fitvals = {idx : self.sinefitterresults[idx].get('raw_fit_vals') for idx in foilsidx}
+        self._fiterrs = {idx : self.sinefitterresults[idx].get('raw_fit_errs') for idx in foilsidx}
 
 ###############################################################################
 ###############################################################################
@@ -277,3 +304,4 @@ result_factory = ReductionJobResultFactory()
 result_factory.add_result_format("allaverage", AveragingReductionJobResult)
 result_factory.add_result_format("selectiveaverage", SelctedFoilAveragingReductionJobResult)
 result_factory.add_result_format("selectfoil", SelectedFoilReductionJobResult)
+result_factory.add_result_format("fitpar", FitparReductionJobResult)

@@ -164,7 +164,7 @@ def quickplotHistogram(histdata, bins=None, output=False):
     if bins:
         hist, bin_edges = np.histogram(histdata, bins=bins)
     else:
-        if numentires(histdata) / 1000 > 1:
+        if numentries(histdata) / 1000 > 1:
             hist, bin_edges = np.histogram(histdata, bins=np.linspace(np.min(histdata), np.max(histdata), numentries(histdata) / 1000, endpoint=True))
         else:
             hist, bin_edges = np.histogram(histdata)
