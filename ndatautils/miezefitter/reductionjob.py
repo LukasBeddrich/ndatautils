@@ -7,6 +7,9 @@ from abc import ABC, abstractmethod
 ###############################################################################
 
 class ReductionJob(ABC):
+    """
+    Base class for the ReductionJob interface
+    """
     def __init__(self, sinefitter):
         self.sinefitter = sinefitter
 
@@ -43,7 +46,27 @@ class ReductionJob(ABC):
 ###############################################################################
 
 class ROIReductionJob(ReductionJob):
+    """
+    An implementation of the ReductionJob interface.
+    The data is summed up in a predefined ROI before fitting the contrast
+    """
     def __init__(self, sinefitter, job_kwargs={}, result_kwargs={}, **kwargs):
+        """
+        Parameters
+        ----------
+        sinefitter : ..sinefitter.SineFitter
+            A SineFitter instance that provides an interface to a selected
+            fitting backend (lmfit, iminuit)
+        job_kwargs : dict
+            specifies the used ROI format as key and the ROI itself
+        result_kwargs : dict
+            specifies the format of the ReductionJobResult, which is
+            instantiated by the factory
+        
+        Returns
+        -------
+        ROIReductionJob implementation
+        """
         super().__init__(sinefitter)
         self.job_kwargs = {
             "lrbt" : None,
@@ -61,6 +84,21 @@ class ROIReductionJob(ReductionJob):
 #            kwargs_dict["lrbt"] = [int(center[1])-4 - 3, int(center[1])+5 - 3, int(center[0])-4, int(center[0])+5]
 
     def run(self, selected_data):
+        """
+        Runs the ROI contraction on the 2D detector data array and
+        fits the retrieved sine signal
+
+        Parameters
+        ----------
+        selected_data : numpy.ndarray
+            2D Cascade detecor data
+            shape: (x, 16, 128, 128)
+
+        Returns
+        -------
+            : subclass of ReductionJobResult
+            Result of the contrast extraaction
+        """
         sine_fit_result_list = []
         if any(self.job_kwargs.values()):
             for dataarray in selected_data:
@@ -111,6 +149,9 @@ class MultiROIReductionJob(ReductionJob):
 ###############################################################################
 
 class ReductionJobResult(ABC):
+    """
+    Base class for the ReductionJobResult interface
+    """
     @abstractmethod
     def __init__(self):
         pass
@@ -122,7 +163,21 @@ class ReductionJobResult(ABC):
 ###############################################################################
 
 class AveragingReductionJobResult(ReductionJobResult):
+    """
+    Instance of a ReductionJobResult subclass that stores
+    a weighted average and its error of the contrast over all
+    sinefitterresults (basically over all foils)
+    """
     def __init__(self, *sinefitterresults, **_ignored):
+        """
+        Parameters
+        ----------
+        *sinefitterresults : ..sinefitter.SineFitterResult
+            arbitrary number of intermediate SineFitterResult objects
+            to be processed into the final result
+        **_ignored : dict
+            any number of additional kwargs which are ignored
+        """
         self.contrast = None
         self.contrast_err = None
 
@@ -141,7 +196,21 @@ class AveragingReductionJobResult(ReductionJobResult):
 #------------------------------------------------------------------------------
 
 class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
+    """
+    Instance of a ReductionJobResult subclass that stores
+    a weighted average and its error of the contrast over a selection of
+    sinefitterresults
+    """
     def __init__(self, *sinefitterresults, **kwargs):
+        """
+        Parameters
+        ----------
+        *sinefitterresults : ..sinefitter.SineFitterResult
+            arbitrary number of intermediate SineFitterResult objects
+            to be processed into the final result
+        **kwargs : dict
+            'foilsdix' : list with viable indices for averaging
+        """
         self.contrast = None
         self.contrast_err = None
 
@@ -159,7 +228,20 @@ class SelctedFoilAveragingReductionJobResult(ReductionJobResult):
 #------------------------------------------------------------------------------
 
 class SelectedFoilReductionJobResult(ReductionJobResult):
+    """
+    Instance of a ReductionJobResult subclass that stores
+    a the contrast and its error of a selected sinefitterresult
+    """
     def __init__(self, *sinefitterresults, **kwargs):
+        """
+        Parameters
+        ----------
+        *sinefitterresults : ..sinefitter.SineFitterResult
+            arbitrary number of intermediate SineFitterResult objects
+            to be processed into the final result
+        **kwargs : dict
+            'idx' : index of the chosen SineFitterResult
+        """
         self.contrast = None
         self.contrast_err = None
 
@@ -177,6 +259,10 @@ class SelectedFoilReductionJobResult(ReductionJobResult):
 ###############################################################################
 
 class ReductionJobResultFactory:
+    """
+    Factory class for subclass instances of ReductionJobResult
+    Registers any available ReductionJobResult by key for creation
+    """
     def __init__(self):
         self._result_format_register = {}
     def add_result_format(self, key, result_format):

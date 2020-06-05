@@ -12,6 +12,23 @@ from ..utils import sine, fit_beam_center
 ###############################################################################
 
 def lmfit_backend_fitting(self, x, preped_data, weights):
+    """
+    Backend for fitting the sine function to the MIEZE signal
+
+    Parameters
+    ----------
+    x : list, numpy.ndarray
+        time bin indices
+    preped_data : list, numpy.ndarray
+        neutron counts of the MIEZE signal
+    weights : list, numpy.ndarray
+        weights associated with the neutron counts in each time bin
+
+    Returns
+    -------
+    : SineFitResult
+        results of the fit including contrast, contrast error
+    """
     model = Model(sine)
             
     model.set_param_hint("A", min=0.0, value=(max(preped_data) - min(preped_data))/2.0)
@@ -36,12 +53,20 @@ def iminuit_backend_fitting():
 #------------------------------------------------------------------------------
 
 class SineFitter:
+    """
+    An interface for fit algorithms based on different backends
+    """
     def __init__(self, fitfunc=None):
         if fitfunc is not None:
             self.fit = MethodType(fitfunc, self)
 
     def fit(self):
-        pass
+        """
+        Returns
+        -------
+        : SineFitResult or subclass
+            Summarizes the fit results in a backend independent form
+        """
         raise NotImplementedError
 
 ###############################################################################
@@ -49,6 +74,9 @@ class SineFitter:
 ###############################################################################
 
 class SineFitResult(ABC):
+    """
+    Base class of a standardized fit result object
+    """
     def __init__(self, backend_result):
         self.resdict = {"contrast" : None,
                           "contrast_err" : None,
@@ -63,6 +91,19 @@ class SineFitResult(ABC):
         self.populate(backend_result)
 
     def get(self, key):
+        """
+        Returns a value of the fit specified by 'key'
+
+        Parameters
+        ----------
+        key : str
+            key of a stored value
+
+        Returns
+        -------
+        : None, float, dict
+            value associated with 'key'
+        """
         try:
             return self.resdict[key]
         except KeyError:
@@ -75,6 +116,19 @@ class SineFitResult(ABC):
 #------------------------------------------------------------------------------
 
 class SineFitResultlmfit(SineFitResult):
+    """
+    Summarizes values and parameters of a lmfit fit result object
+    Contains values for the keys:
+        'contrast'
+        'contrast_err'
+        'phase'
+        'phase_err'
+        'chisqr'
+        'redchi'
+        'success'
+        'raw_fit_vals'
+        'raw_fit_errs'
+    """
     def populate(self, backend_result):
         self.resdict["contrast"] = backend_result.params["A"].value / backend_result.params["y0"].value
         try:
