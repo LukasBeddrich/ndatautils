@@ -1,0 +1,696 @@
+### NICOS data file, created at 2019-02-18 16:06:38
+#                    number : 4408
+#                  filename : p14891_00004408.dat
+#                  filepath : /data/2019/p14891/data/p14891_00004408.dat
+#                      info : timescan(10000, t=5)
+### Experiment information
+#                 Exp_users : Steffen Säubert <steffen.saeubert@frm2.tum.de> (Lehrstuhl E21 Physik Department - Technische Universität München)
+#              Exp_proposal : p14891
+#          Exp_localcontact : christian.franz@frm2.tum.de
+#                 Exp_title : Ni at RESEDA
+#                Exp_remark : 
+### Sample and alignment
+#         Sample_samplename : Ni / Ni
+### Instrument setup
+#           reseda_facility : Heinz Maier-Leibnitz Zentrum Garching (MLZ)
+#         reseda_instrument : RESEDA
+#                   T_alias : T_htf01
+#        reseda_responsible : Christian Franz <christian.franz@frm2.tum.de>
+#            reseda_website : http://www.mlz-garching.de/reseda
+#                reseda_doi : http://dx.doi.org/10.17815/jlsrf-1-37
+#                  Ts_alias : T_htf01
+#           echotime_target : 9.41e-07 ns
+#          reseda_operators : Technische Universität München (TUM)
+### Offsets
+#           arm2_rot_offset : 0.00 deg
+#       psd_distance_offset : 0.000 m
+#       slit2_bottom_offset : 0.000 mm
+#          selcradle_offset : 0.000 deg
+#          slit1_top_offset : 0.000 mm
+#           arm1_rot_offset : 0.00 deg
+#                srz_offset : 0.000 deg
+#       slit1_bottom_offset : 0.000 mm
+#         slit1_left_offset : 0.000 mm
+#         slit2_left_offset : 0.000 mm
+#        slit1_right_offset : 0.000 mm
+#          slit2_top_offset : 0.000 mm
+#        slit2_right_offset : 0.000 mm
+### Limits
+#           nse0_userlimits : (0.0000, 10.0000) A
+#      selcradle_userlimits : (-10.000, 10.000) deg
+#           sf_1_userlimits : (0.001, 5.000) A
+#     slit2_left_userlimits : (-26.000, 26.000) mm
+#            gf6_userlimits : (0.001, 5.000) A
+#          sf_0b_userlimits : (0.001, 5.000) A
+#         hsf_0a_userlimits : (0.001, 5.000) A
+#         hsf_0b_userlimits : (0.001, 5.000) A
+#             Ts_userlimits : (0.000, 1700.000) C
+#            sgx_userlimits : (-15.000, 15.000) deg
+#            gf8_userlimits : (0.001, 5.000) A
+# analysator_rot_userlimits : (-2.000, 2.000) deg
+#            gf2_userlimits : (0.001, 5.000) A
+#            gf1_userlimits : (0.001, 5.000) A
+#  psd_chop_freq_userlimits : (0.100, 10000000.000) Hz
+#          hsf_1_userlimits : (0.001, 5.000) A
+#            gf7_userlimits : (0.001, 5.000) A
+#            sgy_userlimits : (-15.000, 15.000) deg
+#            srz_userlimits : (-180.000, 180.000) deg
+#         det_hv_userlimits : (-3000, 0) V
+#            gf4_userlimits : (0.000, 5.000) A
+# cbox_1_fg_freq_userlimits : (3e+04, 5e+06) Hz
+# selector_speed_userlimits : (0, 28500) rpm
+#          sf_0a_userlimits : (0.001, 5.000) A
+#    slit2_right_userlimits : (-26.000, 26.000) mm
+# psd_timebin_freq_userlimits : (0.100, 10000000.000) Hz
+# cbox_0b_fg_amp_userlimits : (0.001, 5.000) V
+#         hrf_0b_userlimits : (0.000, 100.000) A
+# cbox_0a_fg_freq_userlimits : (30000, 5000000) Hz
+#      slit1_top_userlimits : (-26.000, 26.000) mm
+#       arm2_rot_userlimits : (-15.00, 58.00) deg
+#            gf5_userlimits : (0.001, 5.000) A
+#            gf9_userlimits : (0.001, 5.000) A
+#    T_ccr_stick_userlimits : (0.00, 350.00) K
+#   slit2_bottom_userlimits : (-26.000, 26.000) mm
+#        T_htf01_userlimits : (0.000, 1700.000) C
+#           gf10_userlimits : (0.001, 5.000) A
+#    slit1_right_userlimits : (-26.000, 26.000) mm
+#            sty_userlimits : (-15.00, 15.00) mm
+#          phase_userlimits : (0.001, 5.000) A
+#       arm1_rot_userlimits : (-90.00, 5.00) deg
+#   psd_distance_userlimits : (0.000, 4.000) m
+#  cbox_1_fg_amp_userlimits : (0.001, 5.000) V
+#      slit2_top_userlimits : (-26.000, 26.000) mm
+#     slit1_left_userlimits : (-26.000, 26.000) mm
+# cbox_0a_fg_amp_userlimits : (0.001, 5.000) V
+#            stx_userlimits : (-15.00, 15.00) mm
+#              T_userlimits : (0.000, 1700.000) C
+#   slit1_bottom_userlimits : (-26.000, 26.000) mm
+#     T_ccr_tube_userlimits : (0.00, 350.00) K
+#           nse1_userlimits : (0.0000, 10.0000) A
+#         mon_hv_userlimits : (0.000, 1050.000) V
+#         hrf_0a_userlimits : (0.000, 100.000) A
+#            gf0_userlimits : (0.001, 5.000) A
+#         hrf_1b_userlimits : (0.000, 100.000) A
+#         hrf_1a_userlimits : (0.000, 100.000) A
+### Precisions/tolerances
+#             gf5_precision : 0.005 A
+#             gf7_precision : 0.005 A
+#    slit2_bottom_precision : 0.100 mm
+#     slit2_right_precision : 0.100 mm
+#          mon_hv_precision : 0.000 V
+#            nse1_precision : 0.0030 A
+#           sf_0a_precision : 0.010 A
+#    slit1_bottom_precision : 0.100 mm
+#           sf_0b_precision : 0.010 A
+#           phase_precision : 0.005 A
+#         T_ccr_a_precision : 0.00 K
+#          hsf_0b_precision : 0.010 A
+#            sf_1_precision : 0.010 A
+#         T_ccr_b_precision : 0.00 K
+#             gf6_precision : 0.005 A
+#          det_hv_precision : 1 V
+#             sgy_precision : 0.000 deg
+#       slit1_top_precision : 0.010 mm
+#      slit2_left_precision : 0.100 mm
+#             gf1_precision : 0.005 A
+#           hsf_1_precision : 0.010 A
+#             gf2_precision : 0.005 A
+#             sgx_precision : 0.000 deg
+#          hrf_0b_precision : 0.020 A
+#   P_ng_elements_precision : 0.0 mbar
+#         T_htf01_precision : 10.000 C
+#  analysator_rot_precision : 0.001 deg
+#             sty_precision : 0.00 mm
+#             gf4_precision : 0.005 A
+#    psd_distance_precision : 0.000 m
+#      slit1_left_precision : 0.100 mm
+#       slit2_top_precision : 0.100 mm
+#               T_precision : 10.000 C
+#        arm1_rot_precision : 0.05 deg
+#             stx_precision : 0.00 mm
+#     slit1_right_precision : 0.100 mm
+#       selcradle_precision : 0.100 deg
+#           P_ccr_precision : 0.0 mbar
+#     P_polarizer_precision : 0.0 mbar
+#     T_ccr_stick_precision : 0.10 K
+#            gf10_precision : 0.005 A
+#             gf0_precision : 0.005 A
+# P_selector_vacuum_precision : 0.0000 mbar
+#          hsf_0a_precision : 0.010 A
+#             srz_precision : 0.050 deg
+#          hrf_1a_precision : 0.020 A
+#          hrf_1b_precision : 0.020 A
+#             gf8_precision : 0.005 A
+#            nse0_precision : 0.0030 A
+#             gf9_precision : 0.005 A
+#  selector_speed_precision : 10 rpm
+#          hrf_0a_precision : 0.020 A
+#         T_ccr_d_precision : 0.00 K
+#         T_ccr_c_precision : 0.00 K
+#              Ts_precision : 10.000 C
+#      T_ccr_tube_precision : 0.10 K
+#        arm2_rot_precision : 0.01 deg
+### Device status
+#           arm2_rot_status : ok: axis ready, controller ready (all axis stopped)
+# cbox_0a_coil1_c1c2serial_status : ok: idle
+#    cbox_0a_fg_freq_status : ok: on
+#   cbox_0a_highpass_status : ok: idle
+#   cbox_0a_coil1_c1_status : ok: idle
+#     selector_vibrt_status : ok: ok
+#   cbox_1_coil1_rms_status : ok
+#              sf_0b_status : ok: output on
+#       T_arm1_coil4_status : ok: idle
+#    cbox_1_highpass_status : ok: idle
+# cbox_1_power_divider_status : ok: idle
+#                srz_status : ok: axis ready, controller ready (all axis stopped)
+# cbox_0b_coil1_transformer_status : ok: idle
+#            T_ccr_b_status : ok
+#   cbox_0a_coil2_c3_status : ok: idle
+#    cbox_1_coil1_c2_status : ok: idle
+#          selcradle_status : ok: axis ready, controller ready (all axis stopped)
+# cbox_0a_coil1_transformer_status : ok: idle
+#               sf_1_status : ok: output on
+#    cbox_1_coil1_c1_status : ok: idle
+#               nse0_status : ok: current regulated
+#      P_ng_elements_status : ok: ok
+#    cbox_0a_reg_amp_status : ok: idle
+#      T_arm0b_coil2_status : ok: idle, Error, Sensor short
+#   cbox_0a_coil1_c3_status : ok: idle
+#    cbox_1_diplexer_status : ok: idle
+#   cbox_0b_coil2_c3_status : ok: idle
+#             hrf_1b_status : ok: current regulated
+#        slit1_right_status : ok: motor halted
+#              sf_0a_status : ok: output on
+#                gf0_status : disabled: output off
+#           monitor1_status : ok: idle
+#           fg_burst_status : ok: indeterminate
+#             hrf_0a_status : ok: current regulated
+#            T_ccr_a_status : ok
+# cbox_1_coil1_c1c2serial_status : ok: idle
+#    selector_vacuum_status : ok: ok
+#               nse1_status : ok: current regulated
+#                sgy_status : ok: axis ready, controller ready (all axis stopped)
+#   cbox_0a_diplexer_status : ok: idle
+#        P_polarizer_status : ok: ok
+#   cbox_0b_diplexer_status : ok: idle
+# cbox_0a_coil2_c1c2serial_status : ok: idle
+#       cbox_0b_revp_status : ok: output on
+# cbox_1_coil1_transformer_status : ok: idle
+#   cbox_0b_coil2_c2_status : ok: idle
+# cbox_0b_coil1_c1c2serial_status : ok: idle
+#   cbox_0b_highpass_status : ok: idle
+#      psd_chop_freq_status : ok: on
+#                  T_status : busy: moving
+#       T_arm1_coil2_status : ok: idle
+#    cbox_1_coil1_c3_status : ok: idle
+#                gf1_status : ok: output on
+#     selector_woutt_status : ok: ok
+#        psd_channel_status : ok: idle
+#     analysator_rot_status : ok: axis ready, controller ready (all axis stopped)
+#   cbox_0b_coil1_c2_status : ok: idle
+#      T_arm0a_coil2_status : ok: idle
+#                gf8_status : ok: output on
+#   cbox_0a_coil2_c1_status : ok: idle
+#           arm1_rot_status : ok: axis ready, controller ready (all axis stopped)
+#      cbox_1_fg_amp_status : ok: on
+#               att2_status : ok: idle
+#          DataSpace_status : ok: 838.14 GiB free
+#     cbox_1_fg_freq_status : ok: on
+#                sgx_status : ok: axis ready, controller ready (all axis stopped)
+#              phase_status : ok: output on
+#           echotime_status : ok: wavelength=(seldev=idle, tiltdev=axis ready, controller ready (all axis stopped)), gf1=output on, gf2=output on, gf4=current regulated, gf5=output on, gf6=output on, gf7=output on, gf8=output on, gf9=output on, gf10=output on, hsf_0a=output on, hsf_0b=output on, hsf_1=output on, sf_0a=output on, sf_0b=output on, sf_1=output on, hrf_0a=current regulated, hrf_0b=current regulated, hrf_1a=current regulated, hrf_1b=current regulated, nse0=current regulated, nse1=current regulated, cbox_0a_fg_freq=on, cbox_0a_reg_amp=idle, cbox_0a_coil1_c1=idle, cbox_0a_coil1_c2=idle, cbox_0a_coil1_c1c2serial=idle, cbox_0a_coil1_c3=idle, cbox_0a_coil1_transformer=idle, cbox_0a_coil2_c1=idle, cbox_0a_coil2_c2=idle, cbox_0a_coil2_c1c2serial=idle, cbox_0a_coil2_c3=idle, cbox_0a_coil2_transformer=idle, cbox_0a_diplexer=idle, cbox_0a_power_divider=idle, cbox_0b_fg_freq=on, cbox_0b_reg_amp=idle, cbox_0b_coil1_c1=idle, cbox_0b_coil1_c2=idle, cbox_0b_coil1_c1c2serial=idle, cbox_0b_coil1_c3=idle, cbox_0b_coil1_transformer=idle, cbox_0b_coil2_c1=idle, cbox_0b_coil2_c2=idle, cbox_0b_coil2_c1c2serial=idle, cbox_0b_coil2_c3=idle, cbox_0b_coil2_transformer=idle, cbox_0b_diplexer=idle, cbox_0b_power_divider=idle, cbox_1_fg_freq=on, cbox_1_reg_amp=stable, cbox_1_coil1_c1=idle, cbox_1_coil1_c2=idle, cbox_1_coil1_c1c2serial=idle, cbox_1_coil1_c3=idle, cbox_1_coil1_transformer=idle, cbox_1_coil2_c1=idle, cbox_1_coil2_c2=idle, cbox_1_coil2_c1c2serial=idle, cbox_1_coil2_c3=idle, cbox_1_coil2_transformer=idle, cbox_1_diplexer=idle, cbox_1_power_divider=idle
+#       cbox_0b_fwdp_status : ok: output on
+#     selector_rtemp_status : ok: ok
+#    selector_lambda_status : ok: seldev=idle, tiltdev=axis ready, controller ready (all axis stopped)
+#    cbox_0b_reg_amp_status : ok: idle
+#            cbox_0a_status : ok: idle
+#                 Ts_status : busy: moving
+# cbox_0a_power_divider_status : ok: idle
+#       cbox_0a_revp_status : ok: output on
+#        cbox_1_revp_status : disabled: output off
+#                gf6_status : ok: output on
+#         slit2_left_status : ok: motor halted
+#             Sample_status : ok
+#   cbox_0b_coil1_c3_status : ok: idle
+#                gf9_status : ok: output on
+#             hsf_0a_status : ok: output on
+#              P_ccr_status : error: no transmitter
+#               att1_status : ok: idle
+#          slit1_top_status : ok: motor halted
+# cbox_0b_coil2_transformer_status : ok: idle
+#         T_ccr_tube_status : busy: target not yet reached, temp underrange
+#             hrf_1a_status : ok: current regulated
+#       cbox_0a_fwdp_status : ok: output on
+#            counter_status : ok: idle
+#             st_air_status : ok: idle
+#                gf7_status : ok: output on
+#   cbox_0b_coil2_c1_status : ok: idle
+# cbox_0b_coil2_c1c2serial_status : ok: idle
+#    cbox_1_coil2_c3_status : ok: idle
+#                psd_status : ok: psd_channel=idle, timer=idle, monitor1=idle
+#             hrf_0b_status : ok: current regulated
+#       slit2_bottom_status : ok: motor halted
+#              timer_status : ok: idle
+#     cbox_0b_fg_amp_status : ok: on
+#             mon_hv_status : ok: on
+#               att0_status : ok: idle
+#        slit2_right_status : ok: motor halted
+#   cbox_0b_coil_rms_status : ok
+#     cbox_0a_fg_amp_status : ok: on
+# cbox_0a_coil2_transformer_status : ok: idle
+#       slit1_bottom_status : ok: motor halted
+#    cbox_1_coil2_c2_status : ok: idle
+#     selector_wflow_status : ok: ok
+# cbox_0b_power_divider_status : ok: idle
+#     selector_speed_status : warn: controlled, Database nvs: Datas are not logged!
+#       T_arm1_coil3_status : ok: idle
+#            Sixfold_status : ok
+#                gf4_status : ok: current regulated
+#                stx_status : ok: axis ready, controller ready (all axis stopped)
+#            T_ccr_d_status : ok
+#             det_hv_status : ok: on
+#     selector_winlt_status : ok: ok
+#             cbox_1_status : disabled: output off
+#              Crane_status : ok
+#   cbox_0b_coil1_c1_status : ok: idle
+#     cbox_1_reg_amp_status : ok: stable
+#    cbox_0b_fg_freq_status : ok: on
+#       T_arm1_coil1_status : ok: idle
+#   psd_timebin_freq_status : ok: on
+#              hsf_1_status : ok: output on
+#        cbox_1_fwdp_status : disabled: output off
+#       psd_distance_status : ok: idle
+#            cbox_0b_status : ok: idle
+#              slit2_status : ok: left=motor halted, right=motor halted, bottom=motor halted, top=motor halted
+# cbox_1_coil2_transformer_status : ok: idle
+#   cbox_0a_coil1_c2_status : ok: idle
+#       ReactorPower_status : ok
+#               gf10_status : ok: output on
+#                gf2_status : ok: output on
+#            T_htf01_status : busy: moving
+#   cbox_1_coil2_rms_status : ok
+#          slit2_top_status : ok: motor halted
+#      T_arm0a_coil1_status : ok: idle
+#                gf5_status : ok: output on
+#                sty_status : ok: axis ready, controller ready (all axis stopped)
+#            T_ccr_c_status : warn: temp underrange
+#   cbox_0a_coil2_c2_status : ok: idle
+#    cbox_1_coil2_c1_status : ok: idle
+#   cbox_0a_coil_rms_status : ok
+#      T_arm0b_coil1_status : ok: idle
+#        T_ccr_stick_status : busy: target not yet reached, ok
+# cbox_1_coil2_c1c2serial_status : ok: idle
+#  P_selector_vacuum_status : warn: low
+#         slit1_left_status : ok: motor halted
+#             hsf_0b_status : ok: output on
+#            htf01_p_status : ok: idle
+#              slit1_status : ok: left=motor halted, right=motor halted, bottom=motor halted, top=motor halted
+### Device positions and sample environment state
+# cbox_0a_coil1_c1c2serial_value : 0
+#              hrf_1a_value : 0.004 A
+#             htf01_p_value : -1
+#              hrf_1b_value : 0.001 A
+#                 gf0_value : 1.000 A
+# cbox_1_coil2_rms_timescale : 3.8016e-05
+#                 gf4_value : 1.001 A
+#     cbox_1_coil2_c3_value : 0
+#     cbox_1_coil1_c3_value : 0
+#              hsf_0a_value : 0.800 A
+#               Ts_setpoint : 300.0 C
+#         cbox_1_fwdp_value : 0.000 W
+#        T_arm1_coil4_value : 22.4 degC
+#     cbox_1_highpass_value : 0
+#    psd_timebin_freq_value : 3.200 Hz
+#            Ts_heaterpower : 18.2642993927 W
+#    cbox_0a_coil_rms_value : 0.024 V
+# cbox_1_coil2_c1c2serial_value : 0
+#      cbox_1_fg_freq_value : 3e+05 Hz
+#              hrf_0a_value : 0.724 A
+#      selector_vibrt_value : 0.14 mm/s
+# cbox_0a_coil1_transformer_value : 0
+#    cbox_0b_coil2_c2_value : 0
+#         slit2_right_value : 2.492 mm
+#        cbox_0b_fwdp_value : 0.000 W
+#      T_ccr_stick_setpoint : 300.0 K
+#                nse0_value : 1.7970 A
+# cbox_0b_coil2_transformer_value : 0
+#    cbox_0a_coil1_c2_value : 0
+#                      Ts_i : 80.0
+#         slit1_right_value : 4.990 mm
+#     selector_speed_window : 60.0 s
+# cbox_1_coil1_rms_timescale : 3.8016e-05
+#    cbox_0a_coil2_c2_value : 0
+#       T_arm0b_coil1_value : 22.1 degC
+#      selector_wflow_value : 4.5 l/min
+#                att1_value : out
+#           slit2_top_value : 2.501 mm
+#   cbox_0a_coil_rms_yscale : 0.5
+#              st_air_value : off
+# cbox_0a_coil_rms_timescale : 0.000271584
+#     cbox_0a_fg_freq_value : 35000 Hz
+#                 sgx_value : 0.000 deg
+#             T_ccr_d_value : 0.00 K
+#                      Ts_p : 38.0
+#            arm1_rot_value : -70.12 deg
+#    cbox_0b_coil1_c1_value : 26
+#             T_htf01_value : 301.268 C
+#    cbox_0b_coil1_c2_value : 31
+#             cbox_0a_value : 30609.000 Hz
+#                 gf6_value : 1.500 A
+#             cbox_0b_value : 35439.000 Hz
+#    cbox_0a_coil2_c1_value : 0
+#             T_heaterpower : 18.2642993927 W
+#        T_arm1_coil2_value : 22.3 degC
+#               Crane_value : 50.2 m
+#      cbox_1_reg_amp_value : 0.004 V
+#               phase_value : 0.001 A
+#      selector_woutt_value : 17.4 degC
+#    cbox_1_coil1_rms_value : 0.004 V
+#      selector_rtemp_value : 23.6 degC
+#          T_htf01_setpoint : 300.0 C
+# cbox_0b_fg_freq_timescale : 10.0
+#           selcradle_value : -0.001 deg
+#    cbox_0b_highpass_value : 0
+#         T_ccr_tube_window : 60.0 s
+# cbox_1_coil1_transformer_value : 0
+#                 gf2_value : 0.800 A
+# cbox_0b_coil1_transformer_value : 0
+#        cbox_0b_revp_value : 0.000 W
+# cbox_0a_power_divider_value : 0
+#       T_htf01_heaterpower : 18.2642993927 W
+#        T_arm1_coil1_value : 22.1 degC
+#                 T_htf01_d : 11.0
+#                  T_window : 100.0 s
+#     cbox_0b_reg_amp_value : 0.020 V
+#             T_ccr_c_value : 0.00 K
+#                 gf9_value : 0.001 A
+#            echotime_value : 0 ns
+#      cbox_0a_fg_amp_value : 0.010 V
+#      selector_winlt_value : 17.2 degC
+#  T_ccr_stick_heateroutput : 0.0
+#                       T_p : 38.0
+#       T_arm0b_coil2_value : -200.0 degC
+#                 sgy_value : 0.000 deg
+# cbox_1_coil2_transformer_value : 0
+#    cbox_0a_coil2_c3_value : 0
+#     selector_vacuum_value : 0.00093 mbar
+#    cbox_0a_highpass_value : 0
+#            arm2_rot_value : -0.05 deg
+#            T_htf01_window : 100.0 s
+#    cbox_0a_diplexer_value : 0
+#         cbox_1_revp_value : 0.000 W
+#                       T_i : 80.0
+#   T_ccr_tube_heateroutput : 0.0
+#    cbox_0b_coil_rms_value : 0.020 V
+#             T_ccr_a_value : 0.00 K
+#           DataSpace_value : 838.137 GiB
+# cbox_0b_coil2_c1c2serial_value : 0
+#       psd_chop_freq_value : 0.200 Hz
+#     cbox_1_coil1_c1_value : 0
+#     cbox_1_coil1_c2_value : 0
+#        slit2_bottom_value : 2.494 mm
+#    cbox_0b_coil1_c3_value : 0
+# cbox_0a_coil2_c1c2serial_value : 0
+#        ReactorPower_value : 20.0 MW
+#                sf_1_value : 0.001 A
+#      cbox_0b_fg_amp_value : 0.010 V
+#                 stx_value : 0.00 mm
+#    T_htf01_maxheaterpower : 100.0 W
+#               sf_0a_value : 0.001 A
+#             Sixfold_value : open No unit
+#               P_ccr_value : 1000.0 mbar
+#                 gf1_value : 3.000 A
+#    cbox_0b_coil2_c3_value : 0
+# cbox_0b_power_divider_value : 0
+#                 sty_value : -0.00 mm
+#       cbox_1_fg_amp_value : 0.010 V
+#    cbox_0a_coil1_c3_value : 0
+#              T_ccr_tube_i : 15.0
+# cbox_0b_coil_rms_timescale : 0.000271584
+#        cbox_0a_fwdp_value : 0.000 W
+#    cbox_0b_diplexer_value : 0
+#           slit1_top_value : 5.000 mm
+#          slit1_left_value : 4.993 mm
+#               slit2_value : (-0.01, 0.00) 5.00 x 4.99 mm
+#             T_ccr_stick_i : 20.0
+#              T_ccr_tube_d : 10.0
+#   cbox_1_coil1_rms_yscale : 0.5
+#     selector_lambda_value : 6.00 A
+#        slit1_bottom_value : 5.002 mm
+#       T_arm0a_coil1_value : 22.4 degC
+#             T_ccr_stick_d : 0.0
+#        T_arm1_coil3_value : 22.3 degC
+#                att0_value : out
+#              T_ccr_tube_p : 150.0
+#    cbox_1_coil2_rms_value : 0.022 V
+#                      Ts_d : 11.0
+#              Sample_value : Ni / Ni
+#      analysator_rot_value : 0.950 deg
+#             T_ccr_stick_p : 50.0
+#     cbox_1_coil2_c1_value : 0
+#                 srz_value : -20.992 deg
+#   cbox_1_coil2_rms_yscale : 0.5
+#       T_arm0a_coil2_value : 22.8 degC
+#                 T_htf01_i : 80.0
+#                 gf7_value : 0.001 A
+#    cbox_0b_coil2_c1_value : 0
+#          T_controlchannel : 1
+#      selector_speed_value : 21216 rpm
+#     cbox_1_diplexer_value : 0
+#    cbox_0a_coil1_c1_value : 32
+#              cbox_1_value : 0.000 Hz
+#     cbox_0b_fg_freq_value : 35000.1 Hz
+#                  Ts_value : 301.268 C
+#               slit1_value : (-0.00, -0.00) 9.98 x 10.00 mm
+# cbox_1_power_divider_value : 1
+#              det_hv_value : -2950 V
+#                T_setpoint : 300.0 C
+#              hsf_0b_value : 0.800 A
+#          slit2_left_value : 2.506 mm
+#                nse1_value : 0.0001 A
+#                gf10_value : 0.001 A
+#              hrf_0b_value : 0.802 A
+#              mon_hv_value : 1000.000 V
+#       P_ng_elements_value : 3.9 mbar
+#        cbox_0a_revp_value : 0.000 W
+#                       T_d : 11.0
+#          T_maxheaterpower : 100.0 W
+# cbox_0b_coil1_c1c2serial_value : 0
+#               sf_0b_value : 0.001 A
+#               hsf_1_value : 0.001 A
+#   cbox_0b_coil_rms_yscale : 0.5
+#     cbox_1_coil2_c2_value : 0
+#         Ts_controlchannel : 1
+#         Ts_maxheaterpower : 100.0 W
+# cbox_0a_coil2_transformer_value : 0
+#       T_ccr_tube_setpoint : 300.0 K
+#                 Ts_window : 100.0 s
+#        T_ccr_stick_window : 60.0 s
+#             T_ccr_b_value : 0.00 K
+#                 T_htf01_p : 38.0
+#         T_ccr_stick_value : 0.00 K
+#                 gf8_value : 0.001 A
+#                   T_value : 301.268 C
+#          T_ccr_tube_value : 0.00 K
+#     cbox_0a_reg_amp_value : 0.024 V
+#   P_selector_vacuum_value : 0.0005 mbar
+#                 gf5_value : 1.000 A
+# cbox_1_coil1_c1c2serial_value : 0
+#         P_polarizer_value : 0.3 mbar
+#                att2_value : out
+#        psd_distance_value : 3.430 m
+#            fg_burst_value : trigger
+#    T_htf01_controlchannel : 1
+### Detector preset information
+#                psd_preset : 5.0 s
+#                  psd_mode : time
+### Scan data
+# etime	T	;	timer	monitor1	psd_channel.roi	psd_channel.total	file1
+# s	C	;	s	cts	cts	cts	-
+5.7	301.661	;	5.00	161027	20414	28634	cascade/00144328.pad
+11.4	301.971	;	5.00	161266	20241	28630	cascade/00144329.pad
+17.4	302.283	;	5.00	161467	20357	28696	cascade/00144330.pad
+27.9	302.656	;	5.00	160879	20180	28698	cascade/00144331.pad
+40.3	303.032	;	5.00	161053	20238	28521	cascade/00144332.pad
+46.0	303.104	;	5.00	159925	20048	28400	cascade/00144333.pad
+59.5	303.143	;	5.00	159481	20170	28547	cascade/00144334.pad
+65.2	303.116	;	5.00	161086	20539	28686	cascade/00144335.pad
+71.5	303.093	;	5.00	161416	20191	28473	cascade/00144336.pad
+81.5	302.980	;	5.00	160513	20161	28530	cascade/00144337.pad
+88.3	302.908	;	5.00	160169	20100	28306	cascade/00144338.pad
+98.5	302.891	;	5.00	160848	20240	28332	cascade/00144339.pad
+111.1	302.474	;	5.00	161396	20049	28304	cascade/00144340.pad
+116.8	302.382	;	5.00	161896	20198	28647	cascade/00144341.pad
+130.0	301.777	;	5.00	161347	20295	28570	cascade/00144342.pad
+135.8	301.726	;	5.00	159609	19953	28374	cascade/00144343.pad
+142.5	301.563	;	5.00	159580	19955	28002	cascade/00144344.pad
+151.9	301.073	;	5.00	160983	20145	28384	cascade/00144345.pad
+164.8	300.745	;	5.00	160416	20168	28281	cascade/00144346.pad
+170.5	300.388	;	5.00	161230	20117	28463	cascade/00144347.pad
+183.0	300.110	;	5.00	160654	20205	28413	cascade/00144348.pad
+188.8	300.036	;	5.00	161902	19890	28134	cascade/00144349.pad
+200.2	299.682	;	5.00	161122	19993	28207	cascade/00144350.pad
+205.9	299.633	;	5.00	160781	20195	28436	cascade/00144351.pad
+218.5	299.354	;	5.00	160716	20004	28094	cascade/00144352.pad
+224.2	299.335	;	5.00	160141	20085	28211	cascade/00144353.pad
+235.8	299.244	;	5.00	161101	19941	28247	cascade/00144354.pad
+241.5	299.228	;	5.00	161044	19936	28196	cascade/00144355.pad
+253.8	299.221	;	5.00	159731	20068	28195	cascade/00144356.pad
+259.5	299.186	;	5.00	161206	19819	28139	cascade/00144357.pad
+272.1	299.199	;	5.00	161111	20316	28590	cascade/00144358.pad
+277.9	299.254	;	5.00	161963	19996	28196	cascade/00144359.pad
+289.6	299.376	;	5.00	160844	19837	28041	cascade/00144360.pad
+295.2	299.553	;	5.00	160592	20215	28398	cascade/00144361.pad
+308.2	303.869	;	5.00	159995	19933	28069	cascade/00144362.pad
+314.0	307.252	;	5.00	160663	19913	28232	cascade/00144363.pad
+326.9	313.991	;	5.00	160695	19955	28153	cascade/00144364.pad
+332.6	317.551	;	5.00	160839	20049	28237	cascade/00144365.pad
+344.9	323.904	;	5.00	161719	19992	28116	cascade/00144366.pad
+350.6	325.532	;	5.00	161549	19820	27913	cascade/00144367.pad
+363.5	328.209	;	5.00	160731	19890	28067	cascade/00144368.pad
+369.3	328.958	;	5.00	161421	20095	28393	cascade/00144369.pad
+380.9	330.148	;	5.00	161059	19666	27857	cascade/00144370.pad
+386.6	330.540	;	5.00	161506	19870	27959	cascade/00144371.pad
+399.0	331.160	;	5.00	161235	19753	27892	cascade/00144372.pad
+404.7	331.368	;	5.00	162286	19914	28188	cascade/00144373.pad
+417.7	331.780	;	5.00	160919	19995	28030	cascade/00144374.pad
+423.4	331.822	;	5.00	161378	19798	28134	cascade/00144375.pad
+430.1	331.900	;	5.00	161942	19845	27957	cascade/00144376.pad
+439.5	332.019	;	5.00	160166	19544	27531	cascade/00144377.pad
+447.0	332.021	;	5.00	161393	19537	27733	cascade/00144378.pad
+456.6	332.051	;	5.00	160693	19399	27513	cascade/00144379.pad
+469.1	331.903	;	5.00	161667	19781	28010	cascade/00144380.pad
+474.7	331.931	;	5.00	161465	19793	27844	cascade/00144381.pad
+482.1	331.833	;	5.00	161268	19702	27787	cascade/00144382.pad
+491.8	331.721	;	5.00	160789	19540	27552	cascade/00144383.pad
+500.6	331.477	;	5.00	161185	19923	27943	cascade/00144384.pad
+506.2	331.444	;	5.00	161250	19519	27402	cascade/00144385.pad
+511.9	331.337	;	5.00	161733	19836	27720	cascade/00144386.pad
+517.6	331.223	;	5.00	161842	19864	27653	cascade/00144387.pad
+526.6	330.998	;	5.00	161473	19913	27691	cascade/00144388.pad
+532.8	330.946	;	5.00	160547	19896	27688	cascade/00144389.pad
+538.4	330.716	;	5.00	161056	19656	27336	cascade/00144390.pad
+544.1	330.696	;	5.00	161523	19915	27749	cascade/00144391.pad
+549.9	330.608	;	5.00	160694	19824	27509	cascade/00144392.pad
+558.8	330.505	;	5.00	160268	19708	27466	cascade/00144393.pad
+571.5	330.284	;	5.00	160916	19826	27637	cascade/00144394.pad
+577.2	330.237	;	5.00	161976	20036	27883	cascade/00144395.pad
+589.3	330.056	;	5.00	162005	20019	27683	cascade/00144396.pad
+595.0	330.052	;	5.00	160692	19891	27664	cascade/00144397.pad
+607.2	333.289	;	5.00	160387	19687	27371	cascade/00144398.pad
+612.9	335.300	;	5.00	161080	19858	27526	cascade/00144399.pad
+625.1	337.164	;	5.00	160515	19693	27382	cascade/00144400.pad
+630.9	337.841	;	5.00	162290	20046	27716	cascade/00144401.pad
+644.0	338.882	;	5.00	161380	19832	27522	cascade/00144402.pad
+649.7	339.217	;	5.00	160960	19843	27347	cascade/00144403.pad
+660.6	339.755	;	5.00	162006	20020	27650	cascade/00144404.pad
+666.4	339.914	;	5.00	162156	20138	27624	cascade/00144405.pad
+679.0	340.324	;	5.00	161357	19953	27556	cascade/00144406.pad
+684.7	340.352	;	5.00	160840	19993	27567	cascade/00144407.pad
+696.6	340.529	;	5.00	160543	20062	27506	cascade/00144408.pad
+702.3	340.588	;	5.00	161148	19738	27268	cascade/00144409.pad
+713.8	340.679	;	5.00	160137	19999	27497	cascade/00144410.pad
+719.5	340.692	;	5.00	161191	19818	27419	cascade/00144411.pad
+731.5	340.749	;	5.00	161935	19844	27434	cascade/00144412.pad
+737.2	340.728	;	5.00	163095	20240	27895	cascade/00144413.pad
+749.7	341.228	;	5.00	162630	20133	27707	cascade/00144414.pad
+755.4	342.696	;	5.00	161602	20275	27869	cascade/00144415.pad
+767.8	346.621	;	5.00	161838	19998	27479	cascade/00144416.pad
+773.6	347.294	;	5.00	162432	20171	27824	cascade/00144417.pad
+785.8	348.592	;	5.00	162789	20133	27593	cascade/00144418.pad
+791.5	348.942	;	5.00	163368	20024	27465	cascade/00144419.pad
+804.8	349.637	;	5.00	162406	19956	27587	cascade/00144420.pad
+810.5	349.852	;	5.00	161697	20108	27493	cascade/00144421.pad
+822.0	350.191	;	5.00	161810	20239	27806	cascade/00144422.pad
+827.7	350.313	;	5.00	161035	19913	27433	cascade/00144423.pad
+839.6	350.515	;	5.00	162208	20231	27836	cascade/00144424.pad
+845.4	350.544	;	5.00	160952	20249	27769	cascade/00144425.pad
+858.2	350.625	;	5.00	161195	20203	27702	cascade/00144426.pad
+863.9	350.670	;	5.00	162708	20180	27808	cascade/00144427.pad
+875.9	350.741	;	5.00	162533	20323	27866	cascade/00144428.pad
+881.6	351.074	;	5.00	162491	20144	27826	cascade/00144429.pad
+893.8	355.329	;	5.00	161213	20175	27787	cascade/00144430.pad
+899.5	356.476	;	5.00	161468	19995	27405	cascade/00144431.pad
+906.8	357.406	;	5.00	161798	20094	27619	cascade/00144432.pad
+916.9	358.476	;	5.00	161299	20216	27796	cascade/00144433.pad
+930.2	359.329	;	5.00	160946	19752	27288	cascade/00144434.pad
+935.9	359.584	;	5.00	161236	19933	27452	cascade/00144435.pad
+947.7	360.011	;	5.00	161492	19981	27484	cascade/00144436.pad
+953.4	360.175	;	5.00	162012	19927	27373	cascade/00144437.pad
+961.2	360.344	;	5.00	161184	19801	27344	cascade/00144438.pad
+970.7	360.537	;	5.00	162254	20285	27705	cascade/00144439.pad
+978.1	361.525	;	5.00	161114	19795	27129	cascade/00144440.pad
+988.1	365.270	;	5.00	160939	19985	27478	cascade/00144441.pad
+1001.4	367.605	;	5.00	162058	20263	27725	cascade/00144442.pad
+1007.0	368.236	;	5.00	162533	20131	27702	cascade/00144443.pad
+1019.9	369.339	;	5.00	161997	20211	27576	cascade/00144444.pad
+1025.6	369.666	;	5.00	162460	20134	27649	cascade/00144445.pad
+1031.7	369.973	;	5.00	161395	19871	27341	cascade/00144446.pad
+1042.3	370.299	;	5.00	161460	20256	27676	cascade/00144447.pad
+1049.0	370.525	;	5.00	161255	19990	27527	cascade/00144448.pad
+1058.7	370.622	;	5.00	161429	19912	27354	cascade/00144449.pad
+1072.0	370.819	;	5.00	161017	20002	27498	cascade/00144450.pad
+1077.7	370.796	;	5.00	162214	20054	27660	cascade/00144451.pad
+1089.9	370.827	;	5.00	161530	19882	27433	cascade/00144452.pad
+1095.6	370.821	;	5.00	162820	20191	27730	cascade/00144453.pad
+1107.8	371.019	;	5.00	162370	20073	27584	cascade/00144454.pad
+1113.4	372.186	;	5.00	162139	19867	27327	cascade/00144455.pad
+1125.5	376.349	;	5.00	162265	19710	27133	cascade/00144456.pad
+1131.2	376.853	;	5.00	161619	20075	27451	cascade/00144457.pad
+1145.0	378.429	;	5.00	162025	20271	27725	cascade/00144458.pad
+1150.7	378.798	;	5.00	161743	19997	27542	cascade/00144459.pad
+1156.9	379.106	;	5.00	161881	19878	27261	cascade/00144460.pad
+1167.4	379.594	;	5.00	162570	20120	27782	cascade/00144461.pad
+1173.6	379.792	;	5.00	162303	20174	27934	cascade/00144462.pad
+1179.3	380.028	;	5.00	162591	19811	27222	cascade/00144463.pad
+1185.0	380.138	;	5.00	162660	20243	27787	cascade/00144464.pad
+1190.6	380.182	;	5.00	162382	20189	27736	cascade/00144465.pad
+1199.5	380.380	;	5.00	162980	20134	27546	cascade/00144466.pad
+1212.8	382.183	;	5.00	162036	19901	27256	cascade/00144467.pad
+1218.5	384.433	;	5.00	162515	20178	27777	cascade/00144468.pad
+1231.3	387.096	;	5.00	161471	19928	27342	cascade/00144469.pad
+1237.0	387.851	;	5.00	163224	20289	27924	cascade/00144470.pad
+1250.0	389.117	;	5.00	162119	20193	27614	cascade/00144471.pad
+1255.7	389.383	;	5.00	160743	20144	27509	cascade/00144472.pad
+1261.7	389.752	;	5.00	160962	20156	27440	cascade/00144473.pad
+1267.4	389.977	;	5.00	161895	20146	27589	cascade/00144474.pad
+1273.1	390.152	;	5.00	161847	20147	27590	cascade/00144475.pad
+1278.8	390.322	;	5.00	162789	20197	27669	cascade/00144476.pad
+1287.1	390.492	;	5.00	161931	20269	27821	cascade/00144477.pad
+1295.0	390.571	;	5.00	162510	20124	27645	cascade/00144478.pad
+1305.3	390.687	;	5.00	162968	20263	27765	cascade/00144479.pad
+1318.4	390.833	;	5.00	164074	20145	27614	cascade/00144480.pad
+1324.1	391.712	;	5.00	162016	19657	27050	cascade/00144481.pad
+1336.1	396.028	;	5.00	162691	20198	27823	cascade/00144482.pad
+1341.8	396.900	;	5.00	161485	19885	27534	cascade/00144483.pad
+1353.9	398.180	;	5.00	161840	20104	27538	cascade/00144484.pad
+1359.6	398.810	;	5.00	161899	20125	27371	cascade/00144485.pad
+1372.1	399.493	;	5.00	162749	19914	27327	cascade/00144486.pad
+1377.8	399.684	;	5.00	161860	20062	27619	cascade/00144487.pad
+1390.4	400.108	;	5.00	162181	20049	27510	cascade/00144488.pad
+1396.1	400.262	;	5.00	162491	20268	27734	cascade/00144489.pad
+1408.8	400.490	;	5.00	163070	20281	27878	cascade/00144490.pad
+1414.5	400.517	;	5.00	161938	20084	27514	cascade/00144491.pad
+1426.1	400.599	;	5.00	162325	19887	27376	cascade/00144492.pad
+1431.8	400.614	;	5.00	163515	20111	27581	cascade/00144493.pad
+1438.5	400.588	;	5.00	162978	20433	27944	cascade/00144494.pad
+1444.3	400.608	;	5.00	162639	20022	27412	cascade/00144495.pad
+1450.0	400.560	;	5.00	162149	19898	27487	cascade/00144496.pad
+1460.0	400.551	;	5.00	163207	19754	27184	cascade/00144497.pad
+1465.7	400.559	;	5.00	162072	19822	27107	cascade/00144498.pad
+1478.7	400.504	;	5.00	162987	20045	27538	cascade/00144499.pad
+1484.4	400.472	;	5.00	162806	20345	27869	cascade/00144500.pad
+1490.6	400.360	;	5.00	162864	20039	27684	cascade/00144501.pad
+1500.1	400.342	;	5.00	162651	20128	27796	cascade/00144502.pad
+1513.3	400.259	;	5.00	163232	19975	27486	cascade/00144503.pad
+1518.9	400.203	;	5.00	162087	20207	27533	cascade/00144504.pad
+1531.9	400.152	;	5.00	162062	20039	27526	cascade/00144505.pad
+1537.6	400.189	;	5.00	162575	19860	27373	cascade/00144506.pad
+1544.1	400.153	;	5.00	161898	20080	27467	cascade/00144507.pad
+1553.0	400.038	;	5.00	268	0	2	cascade/00144508.pad
+1561.3	400.050	;	5.00	236	0	0	cascade/00144509.pad
+1570.9	400.030	;	5.00	216	0	1	cascade/00144510.pad
+1578.3	400.027	;	5.00	205	0	0	cascade/00144511.pad
+1584.0	400.017	;	5.00	165	0	0	cascade/00144512.pad
+1589.6	399.994	;	5.00	171	0	0	cascade/00144513.pad
+### End of NICOS data file p14891_00004408.dat
